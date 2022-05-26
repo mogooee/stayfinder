@@ -45,8 +45,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       reservationController
     ]
 
-    self.window = UIWindow(windowScene: scene)
-    self.window?.rootViewController = navigationController
-    self.window?.makeKeyAndVisible()
+    window = UIWindow(windowScene: scene)
+    window?.rootViewController = navigationController
+    window?.makeKeyAndVisible()
   }
 }
