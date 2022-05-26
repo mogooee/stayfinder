@@ -32,10 +32,11 @@
 --trimwhitespace always
 --emptybraces no-space
 --modifierorder
---self insert
+--self init-only
 --wraparguments before-first
 --wrapcollections before-first
 --wrapparameters before-first
+--lineaftermarks false
 
 # rules
 
@@ -52,3 +53,7 @@
 --enable wraparguments
 --enable wrapConditionalBodies
 --enable wrapEnumCases
+--enable spaceAroundComments
+--enable spaceAroundGenerics
+--enable todos
+--enable blankLinesBetweenScopes
