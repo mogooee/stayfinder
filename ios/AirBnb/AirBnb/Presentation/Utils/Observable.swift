@@ -7,10 +7,10 @@
 
 import Foundation
 
-class Observable<T> {
+final class Observable<T> {
   typealias ObserverBlock = (T) -> Void
 
-  private struct Observer {
+  struct Observer {
     weak var identity: AnyObject?
     var block: ObserverBlock
   }
