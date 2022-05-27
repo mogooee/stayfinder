@@ -22,6 +22,8 @@
 		E4BE2A49283DFD5F000099E5 /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BE2A48283DFD5F000099E5 /* ReservationViewController.swift */; };
 		E4BE2A4C283E0500000099E5 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BE2A4B283E0500000099E5 /* UIImage+Extensions.swift */; };
 		E4F11DA6283F28330035CBC2 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F11DA5283F28330035CBC2 /* Observable.swift */; };
+		E4F11DAA283F5B710035CBC2 /* LocationSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F11DA9283F5B710035CBC2 /* LocationSearchController.swift */; };
+		E4F11DAD283F5F100035CBC2 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F11DAC283F5F100035CBC2 /* SearchResultViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		E4BE2A48283DFD5F000099E5 /* ReservationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewController.swift; sourceTree = "<group>"; };
 		E4BE2A4B283E0500000099E5 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		E4F11DA5283F28330035CBC2 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		E4F11DA9283F5B710035CBC2 /* LocationSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchController.swift; sourceTree = "<group>"; };
+		E4F11DAC283F5F100035CBC2 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +126,7 @@
 		E4BE2A41283DFBAB000099E5 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				E4F11DAB283F5F030035CBC2 /* Search */,
 				E4BE2A43283DFC46000099E5 /* Home */,
 				E4BE2A44283DFD1F000099E5 /* WishList */,
 				E4BE2A45283DFD28000099E5 /* Reservation */,
@@ -173,6 +178,15 @@
 				E4588F9C283E281E00544A6D /* UIColor+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E4F11DAB283F5F030035CBC2 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				E4F11DA9283F5B710035CBC2 /* LocationSearchController.swift */,
+				E4F11DAC283F5F100035CBC2 /* SearchResultViewController.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,8 +307,9 @@
 			files = (
 				E4F11DA6283F28330035CBC2 /* Observable.swift in Sources */,
 				E4BE2A49283DFD5F000099E5 /* ReservationViewController.swift in Sources */,
-				E4409DD8283B2A0E005C6BA1 /* HomeController.swift in Sources */,
 				E471A0A02840731300232E5F /* NearCityCollectionViewCell.swift in Sources */,
+				E4F11DAD283F5F100035CBC2 /* SearchResultViewController.swift in Sources */,
+				E4F11DAA283F5B710035CBC2 /* LocationSearchController.swift in Sources */,
 				E471A09E284072F500232E5F /* HeroCollectionViewCell.swift in Sources */,
 				E471A09A2840673E00232E5F /* SectionFactory.swift in Sources */,
 				E4409DD8283B2A0E005C6BA1 /* HomeViewController.swift in Sources */,
