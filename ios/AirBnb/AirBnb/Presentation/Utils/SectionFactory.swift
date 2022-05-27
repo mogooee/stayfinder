@@ -11,13 +11,13 @@ enum SectionFactory {
   static func createHeroSectionLayout() -> NSCollectionLayoutSection {
     let item = NSCollectionLayoutItem(layoutSize: .init(
       widthDimension: .fractionalWidth(1),
-      heightDimension: .fractionalWidth(1)
+      heightDimension: .fractionalHeight(1)
     ))
 
     let group = NSCollectionLayoutGroup.vertical(
       layoutSize: .init(
         widthDimension: .fractionalWidth(1),
-        heightDimension: .fractionalWidth(1)
+        heightDimension: .fractionalHeight(0.5)
       ),
       subitems: [item]
     )
@@ -34,7 +34,7 @@ enum SectionFactory {
     let verticalGroup = NSCollectionLayoutGroup.vertical(
       layoutSize: .init(
         widthDimension: .fractionalWidth(0.8),
-        heightDimension: .fractionalHeight(0.2)
+        heightDimension: .fractionalHeight(0.3)
       ),
       subitem: item,
       count: 2 // 그룹당 2개만 배치
