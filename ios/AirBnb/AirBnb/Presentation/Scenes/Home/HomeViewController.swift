@@ -13,7 +13,7 @@ class HomeViewController: UIViewController {
   private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
   private lazy var dataSource: UICollectionViewDiffableDataSource<Section, String> = configureDataSource()
 
-  var viewModel: HomeViewModel = DefaultHomeViewModel()
+  var viewModel = DefaultHomeViewModel()
 
   // MARK: - Life Cycles
   override func viewDidLoad() {
@@ -46,10 +46,7 @@ class HomeViewController: UIViewController {
 // MARK: - SearchBar Delegation
 extension HomeViewController: UISearchBarDelegate {
   func searchBarTextDidBeginEditing(_: UISearchBar) {
-    searchBar.endEditing(true)
-  }
-
-  func searchBarTextDidEndEditing(_: UISearchBar) {
+    searchBar.resignFirstResponder()
     DispatchQueue.main.async { [weak self] in
       self?.navigationController?.pushViewController(LocationSearchController(), animated: true)
     }
@@ -133,13 +130,18 @@ extension HomeViewController {
   }
 
   private func configureDataSourceSnapshot() {
-    var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
-    snapshot.appendSections([.hero, .nearCities, .recommendation])
-    snapshot.appendItems(["black"], toSection: .hero)
-    snapshot.appendItems((0 ..< 10).map { String($0) }, toSection: .nearCities)
-    snapshot.appendItems((10 ..< 20).map { String($0) }, toSection: .recommendation)
+    var heroSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
+    heroSnapshot.append([viewModel.bannerImage])
 
-    dataSource.apply(snapshot, animatingDifferences: false)
+    var nearCitySnapshot = NSDiffableDataSourceSectionSnapshot<String>()
+    nearCitySnapshot.append((0 ..< 10).map { String($0) })
+
+    var recommendSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
+    recommendSnapshot.append((10 ..< 20).map { String($0) })
+
+    dataSource.apply(heroSnapshot, to: .hero, animatingDifferences: true)
+    dataSource.apply(nearCitySnapshot, to: .nearCities, animatingDifferences: true)
+    dataSource.apply(recommendSnapshot, to: .recommendation, animatingDifferences: true)
   }
 
   private func createSectionHeaderRegistration() -> UICollectionView.SupplementaryRegistration<TitleSupplementaryView> {
@@ -150,10 +152,10 @@ extension HomeViewController {
   }
 
   private func createHeroCellRegistration() -> UICollectionView.CellRegistration<HeroCollectionViewCell, String> {
-    UICollectionView.CellRegistration<HeroCollectionViewCell, String> { cell, _, _ in
+    UICollectionView.CellRegistration<HeroCollectionViewCell, String> { cell, _, item in
       cell.backgroundColor = .orange
 
-      URLSession.shared.dataTask(with: URL(string: "https://s3-alpha-sig.figma.com/img/21b4/b910/27e59a819a2b8cb93633590403acaa63?Expires=1654473600&Signature=H3UXgUlg2p-2iL4ODel45qKyZNWKDe3PqxxtcSFK6mlVeuw5PXeIE4UwPggmnSWYNOyKq6cOnACwNGYqKkg45EtuoqWFn3mp8l4tZuEx7ViFNx0rGp-guxfBvDw4jlIQP5n9hQsrkneEuEzgcwjM7SLzg6PzXmkoC0qRZL0lCGu6tbvymD5VWxSNvNXCoRsMELNOUVeLJcB4YuYp4J8LISfF4Mh9NazJZCZHqRozUKPDkXSLMcm48ttdf7hfUzdeHP8vW~OCE3RiaiR2iozG-brxdZQ4kUh2CLVeA9r7SEhJB1T9VSlQkk3zEL7SH5tJopnM81EaHSdcBxzLqi-P1A__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA")!) { data, _, error in
+      URLSession.shared.dataTask(with: URL(string: item)!) { data, _, error in
         guard let data = data, error == nil else {
           return
         }
