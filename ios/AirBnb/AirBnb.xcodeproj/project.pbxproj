@@ -13,6 +13,10 @@
 		E4409DDD283B2A12005C6BA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4409DDC283B2A12005C6BA1 /* Assets.xcassets */; };
 		E4409DE0283B2A12005C6BA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4409DDE283B2A12005C6BA1 /* LaunchScreen.storyboard */; };
 		E4588F9D283E281E00544A6D /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4588F9C283E281E00544A6D /* UIColor+Extensions.swift */; };
+		E471A09A2840673E00232E5F /* SectionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471A0992840673E00232E5F /* SectionFactory.swift */; };
+		E471A09E284072F500232E5F /* HeroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471A09D284072F500232E5F /* HeroCollectionViewCell.swift */; };
+		E471A0A02840731300232E5F /* NearCityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471A09F2840731300232E5F /* NearCityCollectionViewCell.swift */; };
+		E471A0A22840732500232E5F /* RecommendationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471A0A12840732500232E5F /* RecommendationCollectionViewCell.swift */; };
 		E4BE2A39283CC8A9000099E5 /* Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = E4BE2A38283CC8A9000099E5 /* Toolbox */; };
 		E4BE2A47283DFD48000099E5 /* WishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BE2A46283DFD48000099E5 /* WishListViewController.swift */; };
 		E4BE2A49283DFD5F000099E5 /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BE2A48283DFD5F000099E5 /* ReservationViewController.swift */; };
@@ -32,6 +36,10 @@
 		E45F2A7B283B2CD300F0CB7C /* release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
 		E45F2A7D283B2F2200F0CB7C /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
 		E45F2A7E283B2F4F00F0CB7C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		E471A0992840673E00232E5F /* SectionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionFactory.swift; sourceTree = "<group>"; };
+		E471A09D284072F500232E5F /* HeroCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroCollectionViewCell.swift; sourceTree = "<group>"; };
+		E471A09F2840731300232E5F /* NearCityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearCityCollectionViewCell.swift; sourceTree = "<group>"; };
+		E471A0A12840732500232E5F /* RecommendationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationCollectionViewCell.swift; sourceTree = "<group>"; };
 		E4BE2A37283CC86E000099E5 /* Toolbox */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Toolbox; sourceTree = "<group>"; };
 		E4BE2A3D283DFA7B000099E5 /* AirBnb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirBnb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4BE2A46283DFD48000099E5 /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +134,7 @@
 			children = (
 				E4BE2A4A283E04EC000099E5 /* Extensions */,
 				E4F11DA5283F28330035CBC2 /* Observable.swift */,
+				E471A0992840673E00232E5F /* SectionFactory.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -133,7 +142,10 @@
 		E4BE2A43283DFC46000099E5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				E4409DD7283B2A0E005C6BA1 /* HomeController.swift */,
+				E4409DD7283B2A0E005C6BA1 /* HomeViewController.swift */,
+				E471A09D284072F500232E5F /* HeroCollectionViewCell.swift */,
+				E471A09F2840731300232E5F /* NearCityCollectionViewCell.swift */,
+				E471A0A12840732500232E5F /* RecommendationCollectionViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -282,9 +294,14 @@
 				E4F11DA6283F28330035CBC2 /* Observable.swift in Sources */,
 				E4BE2A49283DFD5F000099E5 /* ReservationViewController.swift in Sources */,
 				E4409DD8283B2A0E005C6BA1 /* HomeController.swift in Sources */,
+				E471A0A02840731300232E5F /* NearCityCollectionViewCell.swift in Sources */,
+				E471A09E284072F500232E5F /* HeroCollectionViewCell.swift in Sources */,
+				E471A09A2840673E00232E5F /* SectionFactory.swift in Sources */,
+				E4409DD8283B2A0E005C6BA1 /* HomeViewController.swift in Sources */,
 				E4BE2A47283DFD48000099E5 /* WishListViewController.swift in Sources */,
 				E4588F9D283E281E00544A6D /* UIColor+Extensions.swift in Sources */,
 				E4BE2A4C283E0500000099E5 /* UIImage+Extensions.swift in Sources */,
+				E471A0A22840732500232E5F /* RecommendationCollectionViewCell.swift in Sources */,
 				E4409DD4283B2A0E005C6BA1 /* AppDelegate.swift in Sources */,
 				E4409DD6283B2A0E005C6BA1 /* SceneDelegate.swift in Sources */,
 			);
