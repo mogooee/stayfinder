@@ -14,16 +14,15 @@ enum SectionFactory {
       heightDimension: .fractionalWidth(1)
     ))
 
-    let wrapperGroup = NSCollectionLayoutGroup.vertical(
+    let group = NSCollectionLayoutGroup.vertical(
       layoutSize: .init(
         widthDimension: .fractionalWidth(1),
         heightDimension: .fractionalWidth(1)
       ),
-      subitem: item,
-      count: 1
+      subitems: [item]
     )
 
-    return NSCollectionLayoutSection(group: wrapperGroup)
+    return NSCollectionLayoutSection(group: group)
   }
 
   static func createListPagingSectionLayout() -> NSCollectionLayoutSection {
@@ -32,15 +31,30 @@ enum SectionFactory {
       heightDimension: .fractionalHeight(1)
     ))
 
-    let wrapperGroup = NSCollectionLayoutGroup.horizontal(
+    let verticalGroup = NSCollectionLayoutGroup.vertical(
       layoutSize: .init(
-        widthDimension: .fractionalWidth(1),
-        heightDimension: .fractionalHeight(1)
+        widthDimension: .fractionalWidth(0.8),
+        heightDimension: .fractionalHeight(0.2)
       ),
-      subitems: [item]
+      subitem: item,
+      count: 2 // 그룹당 2개만 배치
     )
 
-    return NSCollectionLayoutSection(group: wrapperGroup)
+    verticalGroup.interItemSpacing = .fixed(5)
+
+    let section = NSCollectionLayoutSection(group: verticalGroup)
+    section.interGroupSpacing = 5
+    section.orthogonalScrollingBehavior = .groupPaging
+
+    section.boundarySupplementaryItems = [
+      .init(
+        layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50)),
+        elementKind: UICollectionView.elementKindSectionHeader,
+        alignment: .top
+      )
+    ]
+
+    return section
   }
 
   static func createPagingSectionLayout() -> NSCollectionLayoutSection {
@@ -49,14 +63,29 @@ enum SectionFactory {
       heightDimension: .fractionalHeight(1)
     ))
 
-    let wrapperGroup = NSCollectionLayoutGroup.horizontal(
+    let horizontalGroup = NSCollectionLayoutGroup.horizontal(
       layoutSize: .init(
-        widthDimension: .fractionalWidth(1),
-        heightDimension: .fractionalHeight(1)
+        widthDimension: .fractionalWidth(0.8),
+        heightDimension: .fractionalHeight(0.4)
       ),
-      subitems: [item]
+      subitem: item,
+      count: 1 // 그룹당 1개만 배치
     )
 
-    return NSCollectionLayoutSection(group: wrapperGroup)
+    horizontalGroup.interItemSpacing = .flexible(5)
+
+    let section = NSCollectionLayoutSection(group: horizontalGroup)
+    section.interGroupSpacing = 5
+    section.orthogonalScrollingBehavior = .groupPaging
+
+    section.boundarySupplementaryItems = [
+      .init(
+        layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50)),
+        elementKind: UICollectionView.elementKindSectionHeader,
+        alignment: .top
+      )
+    ]
+
+    return section
   }
 }
