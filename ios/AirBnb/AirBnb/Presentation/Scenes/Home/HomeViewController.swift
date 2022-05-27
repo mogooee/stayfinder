@@ -96,7 +96,7 @@ extension HomeViewController {
     let cityCellRegistration = createNearCityCellRegistration()
     let recommendationCellRegistration = createRecommendationCellRegistration()
 
-    return UICollectionViewDiffableDataSource<Section, String>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+    let dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
       guard let section = Section(rawValue: indexPath.section) else {
         return nil
       }
@@ -122,21 +122,37 @@ extension HomeViewController {
         )
       }
     })
+
+    let sectionHeaderRegistration = createSectionHeaderRegistration()
+
+    dataSource.supplementaryViewProvider = { collectionView, _, indexPath in
+      collectionView.dequeueConfiguredReusableSupplementary(
+        using: sectionHeaderRegistration, for: indexPath
+      )
+    }
+
+    return dataSource
   }
 
-  private func applyInitialDataSource() {
+  private func configureDataSourceSnapshot() {
     var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
     snapshot.appendSections([.hero, .nearCities, .recommendation])
     snapshot.appendItems(["black"], toSection: .hero)
-    snapshot.appendItems(["white"], toSection: .nearCities)
-    snapshot.appendItems(["green"], toSection: .recommendation)
+    snapshot.appendItems((0 ..< 10).map { String($0) }, toSection: .nearCities)
+    snapshot.appendItems((10 ..< 20).map { String($0) }, toSection: .recommendation)
 
     dataSource.apply(snapshot, animatingDifferences: false)
   }
 
+  private func createSectionHeaderRegistration() -> UICollectionView.SupplementaryRegistration<TitleSupplementaryView> {
+    UICollectionView.SupplementaryRegistration<TitleSupplementaryView>(elementKind: UICollectionView.elementKindSectionHeader) { supplementaryView, _, indexPath in
+      supplementaryView.label.text = self.viewModel.getSectionTitle(at: indexPath.section)
+      supplementaryView.label.numberOfLines = 0
+    }
+  }
+
   private func createHeroCellRegistration() -> UICollectionView.CellRegistration<HeroCollectionViewCell, String> {
-    UICollectionView.CellRegistration<HeroCollectionViewCell, String> { cell, _, item in
-      print("HERO: \(item)")
+    UICollectionView.CellRegistration<HeroCollectionViewCell, String> { cell, _, _ in
       cell.backgroundColor = .orange
 
       URLSession.shared.dataTask(with: URL(string: "https://s3-alpha-sig.figma.com/img/21b4/b910/27e59a819a2b8cb93633590403acaa63?Expires=1654473600&Signature=H3UXgUlg2p-2iL4ODel45qKyZNWKDe3PqxxtcSFK6mlVeuw5PXeIE4UwPggmnSWYNOyKq6cOnACwNGYqKkg45EtuoqWFn3mp8l4tZuEx7ViFNx0rGp-guxfBvDw4jlIQP5n9hQsrkneEuEzgcwjM7SLzg6PzXmkoC0qRZL0lCGu6tbvymD5VWxSNvNXCoRsMELNOUVeLJcB4YuYp4J8LISfF4Mh9NazJZCZHqRozUKPDkXSLMcm48ttdf7hfUzdeHP8vW~OCE3RiaiR2iozG-brxdZQ4kUh2CLVeA9r7SEhJB1T9VSlQkk3zEL7SH5tJopnM81EaHSdcBxzLqi-P1A__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA")!) { data, _, error in
@@ -145,7 +161,7 @@ extension HomeViewController {
         }
 
         DispatchQueue.main.async {
-          cell.imageView.image = UIImage(data: data)
+          cell.setImage(UIImage(data: data))
         }
 
       }.resume()
@@ -153,15 +169,13 @@ extension HomeViewController {
   }
 
   private func createNearCityCellRegistration() -> UICollectionView.CellRegistration<NearCityCollectionViewCell, String> {
-    UICollectionView.CellRegistration<NearCityCollectionViewCell, String> { cell, _, item in
-      print("Near: \(item)")
+    UICollectionView.CellRegistration<NearCityCollectionViewCell, String> { cell, _, _ in
       cell.backgroundColor = .red
     }
   }
 
   private func createRecommendationCellRegistration() -> UICollectionView.CellRegistration<RecommendationCollectionViewCell, String> {
-    UICollectionView.CellRegistration<RecommendationCollectionViewCell, String> { cell, _, item in
-      print("Recommendation: \(item)")
+    UICollectionView.CellRegistration<RecommendationCollectionViewCell, String> { cell, _, _ in
       cell.backgroundColor = .blue
     }
   }

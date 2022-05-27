@@ -18,6 +18,7 @@
 		E471A0A02840731300232E5F /* NearCityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471A09F2840731300232E5F /* NearCityCollectionViewCell.swift */; };
 		E471A0A22840732500232E5F /* RecommendationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471A0A12840732500232E5F /* RecommendationCollectionViewCell.swift */; };
 		E471A0A72840B04D00232E5F /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471A0A62840B04D00232E5F /* TitleSupplementaryView.swift */; };
+		E471A0AA2840BA7600232E5F /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471A0A92840BA7600232E5F /* HomeViewModel.swift */; };
 		E4BE2A39283CC8A9000099E5 /* Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = E4BE2A38283CC8A9000099E5 /* Toolbox */; };
 		E4BE2A47283DFD48000099E5 /* WishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BE2A46283DFD48000099E5 /* WishListViewController.swift */; };
 		E4BE2A49283DFD5F000099E5 /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BE2A48283DFD5F000099E5 /* ReservationViewController.swift */; };
@@ -44,6 +45,7 @@
 		E471A09F2840731300232E5F /* NearCityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearCityCollectionViewCell.swift; sourceTree = "<group>"; };
 		E471A0A12840732500232E5F /* RecommendationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationCollectionViewCell.swift; sourceTree = "<group>"; };
 		E471A0A62840B04D00232E5F /* TitleSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSupplementaryView.swift; sourceTree = "<group>"; };
+		E471A0A92840BA7600232E5F /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E4BE2A37283CC86E000099E5 /* Toolbox */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Toolbox; sourceTree = "<group>"; };
 		E4BE2A3D283DFA7B000099E5 /* AirBnb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirBnb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4BE2A46283DFD48000099E5 /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		E471A0A82840BA6900232E5F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E471A0A92840BA7600232E5F /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		E4BE2A36283CC86E000099E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +159,7 @@
 		E4BE2A43283DFC46000099E5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				E471A0A82840BA6900232E5F /* ViewModel */,
 				E4409DD7283B2A0E005C6BA1 /* HomeViewController.swift */,
 				E471A0A62840B04D00232E5F /* TitleSupplementaryView.swift */,
 				E471A09D284072F500232E5F /* HeroCollectionViewCell.swift */,
@@ -311,6 +322,7 @@
 				E4F11DA6283F28330035CBC2 /* Observable.swift in Sources */,
 				E4BE2A49283DFD5F000099E5 /* ReservationViewController.swift in Sources */,
 				E471A0A02840731300232E5F /* NearCityCollectionViewCell.swift in Sources */,
+				E471A0AA2840BA7600232E5F /* HomeViewModel.swift in Sources */,
 				E4F11DAD283F5F100035CBC2 /* SearchResultViewController.swift in Sources */,
 				E4F11DAA283F5B710035CBC2 /* LocationSearchController.swift in Sources */,
 				E471A09E284072F500232E5F /* HeroCollectionViewCell.swift in Sources */,

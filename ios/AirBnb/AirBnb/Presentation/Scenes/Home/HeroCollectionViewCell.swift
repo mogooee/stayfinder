@@ -9,7 +9,7 @@ import SnapKit
 import UIKit
 
 class HeroCollectionViewCell: UICollectionViewCell {
-  let imageView = UIImageView(frame: .zero)
+  private let imageView = UIImageView(frame: .zero)
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -28,7 +28,7 @@ class HeroCollectionViewCell: UICollectionViewCell {
     }
   }
 
-  func setImage(image: UIImage) {
+  func setImage(_ image: UIImage?) {
     imageView.image = image
   }
 }
