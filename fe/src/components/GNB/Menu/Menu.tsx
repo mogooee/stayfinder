@@ -1,23 +1,20 @@
 import React from 'react';
 import StyledMenu from 'components/GNB/Menu/Menu.styled';
-import { ReactComponent as AccomodationIcon } from 'img/svg/accomodation.svg';
-import { ReactComponent as ExperienceIcon } from 'img/svg/experience.svg';
-import { ReactComponent as OnlineExperienceIcon } from 'img/svg/online-experience.svg';
 
-function Menu() {
+export default function Menu() {
   return (
-    <StyledMenu className="menu">
-      <li>
-        <AccomodationIcon />
-      </li>
-      <li>
-        <ExperienceIcon />
-      </li>
-      <li>
-        <OnlineExperienceIcon />
-      </li>
+    <StyledMenu>
+      <ul>
+        <li>
+          <span>숙소</span>
+        </li>
+        <li>
+          <span>체험</span>
+        </li>
+        <li>
+          <span>온라인 체험</span>
+        </li>
+      </ul>
     </StyledMenu>
   );
 }
-
-export default Menu;

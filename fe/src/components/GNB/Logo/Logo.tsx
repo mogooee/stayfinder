@@ -1,12 +1,11 @@
 import React from 'react';
 import { ReactComponent as LogoIcon } from 'img/svg/logo.svg';
 
-function Logo() {
+export default function Logo() {
+  const ROOT_URL = '/airbnb';
   return (
-    <h1 className="logo">
+    <a href={ROOT_URL} className="logo">
       <LogoIcon />
-    </h1>
+    </a>
   );
 }
-
-export default Logo;

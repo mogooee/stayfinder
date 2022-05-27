@@ -1,6 +1,7 @@
 import React from 'react';
-import GNB from 'components/GNB/GNB';
 import styled from 'styled-components';
+import GNB from 'components/GNB/GNB';
+import SearchBar from 'components/SearchBar/SearchBar';
 import backGroundImg from 'img/png/hero-img.png';
 
 const Header = styled.header`
@@ -11,14 +12,13 @@ const Header = styled.header`
   background-repeat: no-repeat;
 `;
 
-function Main() {
+export default function Main() {
   return (
     <main>
       <Header>
         <GNB />
+        <SearchBar />
       </Header>
     </main>
   );
 }
-
-export default Main;

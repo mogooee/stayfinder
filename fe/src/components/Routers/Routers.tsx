@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Main, NotFound, Search } from 'pages';
 
-function Routers() {
+export default function Routers() {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
@@ -13,5 +13,3 @@ function Routers() {
     </BrowserRouter>
   );
 }
-
-export default Routers;

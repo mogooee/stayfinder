@@ -1,8 +1,11 @@
 import React from 'react';
+import { Button } from '@mui/material';
 import { ReactComponent as LoginIcon } from 'img/svg/login.svg';
 
-function AccountMenu() {
-  return <LoginIcon className="loginIcon" />;
+export default function AccountMenu() {
+  return (
+    <Button disableRipple disableFocusRipple style={{ backgroundColor: 'transparent' }}>
+      <LoginIcon className="loginIcon" />
+    </Button>
+  );
 }
-
-export default AccountMenu;
