@@ -13,7 +13,7 @@ class HomeViewController: UIViewController {
   private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
   private lazy var dataSource: UICollectionViewDiffableDataSource<Section, String> = configureDataSource()
 
-  var viewModel = DefaultHomeViewModel()
+  private var viewModel = DefaultHomeViewModel()
 
   // MARK: - Life Cycles
   override func viewDidLoad() {
@@ -25,17 +25,17 @@ class HomeViewController: UIViewController {
   // MARK: - UI Configuration
   private func configureUI() {
     view.backgroundColor = .systemBackground
-    configureSearchBar()
-    configureCollectionView()
+    configureSearchBarAttributes()
+    configureCollectionViewLayout()
   }
 
-  private func configureSearchBar() {
+  private func configureSearchBarAttributes() {
     navigationItem.titleView = searchBar
     searchBar.placeholder = "어디로 여행가세요?"
     searchBar.delegate = self
   }
 
-  private func configureCollectionView() {
+  private func configureCollectionViewLayout() {
     view.addSubview(collectionView)
     collectionView.snp.makeConstraints { make in
       make.edges.equalTo(self.view.safeAreaLayoutGuide)
@@ -55,7 +55,7 @@ extension HomeViewController: UISearchBarDelegate {
 
 // MARK: - Compositional Layout Configuration
 extension HomeViewController {
-  enum Section: Int {
+  private enum Section: Int {
     case hero
     case nearCities
     case recommendation
