@@ -91,6 +91,17 @@
 			path = AirBnb;
 			sourceTree = "<group>";
 		};
+		E4583FB32842053600A095BB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E471A0A62840B04D00232E5F /* TitleSupplementaryView.swift */,
+				E471A09D284072F500232E5F /* HeroCollectionViewCell.swift */,
+				E471A09F2840731300232E5F /* NearCityCollectionViewCell.swift */,
+				E471A0A12840732500232E5F /* RecommendationCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		E45F2A81283B30C300F0CB7C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,12 +170,9 @@
 		E4BE2A43283DFC46000099E5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				E4583FB32842053600A095BB /* View */,
 				E471A0A82840BA6900232E5F /* ViewModel */,
 				E4409DD7283B2A0E005C6BA1 /* HomeViewController.swift */,
-				E471A0A62840B04D00232E5F /* TitleSupplementaryView.swift */,
-				E471A09D284072F500232E5F /* HeroCollectionViewCell.swift */,
-				E471A09F2840731300232E5F /* NearCityCollectionViewCell.swift */,
-				E471A0A12840732500232E5F /* RecommendationCollectionViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
