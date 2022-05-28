@@ -153,8 +153,6 @@ extension HomeViewController {
 
   private func createHeroCellRegistration() -> UICollectionView.CellRegistration<HeroCollectionViewCell, String> {
     UICollectionView.CellRegistration<HeroCollectionViewCell, String> { cell, _, item in
-      cell.backgroundColor = .orange
-
       URLSession.shared.dataTask(with: URL(string: item)!) { data, _, error in
         guard let data = data, error == nil else {
           return

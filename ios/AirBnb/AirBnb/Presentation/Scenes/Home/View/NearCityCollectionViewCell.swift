@@ -9,50 +9,71 @@ import SnapKit
 import UIKit
 
 class NearCityCollectionViewCell: UICollectionViewCell {
-  private let imageView = UIImageView(frame: .zero)
-  private let cityName = UILabel()
-  private let distanceLabel = UILabel()
+  private let thumbnailView = UIImageView(frame: .zero)
+  private let title = UILabel()
+  private let subtitle = UILabel()
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    configure()
+    configureUI()
   }
 
   required init?(coder: NSCoder) {
     super.init(coder: coder)
-    configure()
+    configureUI()
   }
 
-  private func configure() {
-    contentView.addSubview(imageView)
-    imageView.snp.makeConstraints { make in
+  private func configureUI() {
+    configureLayout()
+    configureAttributes()
+  }
+
+  private func configureAttributes() {
+    configureCityNameLabel()
+    configureDistanceLabel()
+  }
+
+  private func configureCityNameLabel() {
+    title.adjustsFontSizeToFitWidth = true
+  }
+
+  private func configureDistanceLabel() {
+    subtitle.adjustsFontSizeToFitWidth = true
+  }
+
+  private func configureLayout() {
+    contentView.addSubview(thumbnailView)
+    thumbnailView.snp.makeConstraints { make in
       make.top.equalTo(contentView)
       make.leading.equalTo(contentView)
       make.bottom.equalTo(contentView)
     }
 
-    cityName.adjustsFontSizeToFitWidth = true
-    distanceLabel.adjustsFontSizeToFitWidth = true
-
-    let stack = UIStackView(arrangedSubviews: [cityName, distanceLabel])
+    let stack = UIStackView(arrangedSubviews: [title, subtitle])
     stack.axis = .vertical
 
     contentView.addSubview(stack)
     stack.snp.makeConstraints { make in
-      make.centerY.equalTo(imageView)
-      make.leading.equalTo(imageView).offset(6)
+      make.centerY.equalTo(thumbnailView)
+      make.leading.equalTo(thumbnailView).offset(6)
     }
   }
 
-  func setImage(_ image: UIImage?) {
-    imageView.image = image
+  private func setImage(_ image: UIImage?) {
+    thumbnailView.image = image
   }
 
-  func setCityName(_ text: String) {
-    cityName.text = text
+  private func setTitle(_ text: String) {
+    title.text = text
   }
 
-  func setDistanceText(_ text: String) {
-    distanceLabel.text = text
+  private func setSubtitle(_ text: String) {
+    subtitle.text = text
+  }
+
+  func setData(title: String, subtitle: String, image: UIImage?) {
+    setTitle(title)
+    setSubtitle(subtitle)
+    setImage(image)
   }
 }
