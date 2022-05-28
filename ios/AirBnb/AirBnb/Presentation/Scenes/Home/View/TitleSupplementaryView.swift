@@ -28,10 +28,10 @@ class TitleSupplementaryView: UICollectionReusableView {
     configureLayout()
   }
 
-	private func configureLabel() {
-		label.adjustsFontForContentSizeCategory = true
-		label.font = UIFont.preferredFont(forTextStyle: .title2)
-	}
+  private func configureLabel() {
+    label.adjustsFontForContentSizeCategory = true
+    label.font = UIFont.preferredFont(forTextStyle: .title2)
+  }
 
   private func configureLayout() {
     addSubview(label)

@@ -9,41 +9,58 @@ import SnapKit
 import UIKit
 
 class HeroCollectionViewCell: UICollectionViewCell {
-  private let imageView = UIImageView(frame: .zero)
+  private let backgroundImageView = UIImageView(frame: .zero)
   private let title = UILabel()
   private let subtitle = UILabel()
-  private let button: UIButton = {
-    var config = UIButton.Configuration.filled()
-    config.background.backgroundColor = .gray1
-    let button = UIButton(configuration: config)
-    button.setTitle("여행 아이디어 얻기", for: .normal)
-    return button
-  }()
+  private let button = UIButton(frame: .zero)
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    configure()
+    configureUI()
   }
 
   required init?(coder: NSCoder) {
     super.init(coder: coder)
-    configure()
+    configureUI()
   }
 
-  private func configure() {
-    contentView.addSubview(imageView)
-    imageView.snp.makeConstraints { make in
-      make.edges.equalTo(contentView)
-    }
+  private func configureUI() {
+    configureLayout()
+    configureViewAttributes()
+  }
 
+  private func configureViewAttributes() {
+    configureTitleLabel()
+    configureSubTitleLabel()
+    configureButton()
+  }
+
+  private func configureTitleLabel() {
     title.text = "슬기로운\n자연생활"
     title.numberOfLines = 0
     title.font = .preferredFont(forTextStyle: .title1)
     title.adjustsFontSizeToFitWidth = true
+  }
+
+  private func configureSubTitleLabel() {
     subtitle.text = "에어비앤비가 엄선한\n위시리스트를 만나보세요."
     subtitle.numberOfLines = 0
     subtitle.font = .preferredFont(forTextStyle: .title3)
     subtitle.adjustsFontSizeToFitWidth = true
+  }
+
+  private func configureButton() {
+    var config = UIButton.Configuration.filled()
+    config.background.backgroundColor = .gray1
+    config.title = "여행 아이디어 얻기"
+    button.configuration = config
+  }
+
+  private func configureLayout() {
+    contentView.addSubview(backgroundImageView)
+    backgroundImageView.snp.makeConstraints { make in
+      make.edges.equalTo(contentView)
+    }
 
     let stack = UIStackView(arrangedSubviews: [title, subtitle])
     stack.axis = .vertical
@@ -68,6 +85,6 @@ class HeroCollectionViewCell: UICollectionViewCell {
   }
 
   func setImage(_ image: UIImage?) {
-    imageView.image = image
+    backgroundImageView.image = image
   }
 }
