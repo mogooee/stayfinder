@@ -16,8 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     let tabBarController = UITabBarController()
-    let navigationController = UINavigationController(rootViewController: tabBarController)
-    let homeController = HomeController()
+    let homeController = HomeViewController()
     let wishListController = WishListViewController()
     let reservationController = ReservationViewController()
 
@@ -40,13 +39,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     )
 
     tabBarController.viewControllers = [
-      homeController,
-      wishListController,
+      UINavigationController(rootViewController: homeController),
+      UINavigationController(rootViewController: wishListController),
       reservationController
     ]
 
-    self.window = UIWindow(windowScene: scene)
-    self.window?.rootViewController = navigationController
-    self.window?.makeKeyAndVisible()
+    window = UIWindow(windowScene: scene)
+    window?.rootViewController = tabBarController
+    window?.makeKeyAndVisible()
   }
 }

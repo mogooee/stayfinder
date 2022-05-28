@@ -9,35 +9,51 @@
 /* Begin PBXBuildFile section */
 		E4409DD4283B2A0E005C6BA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4409DD3283B2A0E005C6BA1 /* AppDelegate.swift */; };
 		E4409DD6283B2A0E005C6BA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4409DD5283B2A0E005C6BA1 /* SceneDelegate.swift */; };
-		E4409DD8283B2A0E005C6BA1 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4409DD7283B2A0E005C6BA1 /* HomeController.swift */; };
+		E4409DD8283B2A0E005C6BA1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4409DD7283B2A0E005C6BA1 /* HomeViewController.swift */; };
 		E4409DDD283B2A12005C6BA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4409DDC283B2A12005C6BA1 /* Assets.xcassets */; };
 		E4409DE0283B2A12005C6BA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4409DDE283B2A12005C6BA1 /* LaunchScreen.storyboard */; };
-		E4588F99283E15AC00544A6D /* ScrollableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4588F98283E15AC00544A6D /* ScrollableView.swift */; };
 		E4588F9D283E281E00544A6D /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4588F9C283E281E00544A6D /* UIColor+Extensions.swift */; };
+		E471A09A2840673E00232E5F /* SectionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471A0992840673E00232E5F /* SectionFactory.swift */; };
+		E471A09E284072F500232E5F /* HeroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471A09D284072F500232E5F /* HeroCollectionViewCell.swift */; };
+		E471A0A02840731300232E5F /* NearCityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471A09F2840731300232E5F /* NearCityCollectionViewCell.swift */; };
+		E471A0A22840732500232E5F /* RecommendationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471A0A12840732500232E5F /* RecommendationCollectionViewCell.swift */; };
+		E471A0A72840B04D00232E5F /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471A0A62840B04D00232E5F /* TitleSupplementaryView.swift */; };
+		E471A0AA2840BA7600232E5F /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471A0A92840BA7600232E5F /* HomeViewModel.swift */; };
 		E4BE2A39283CC8A9000099E5 /* Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = E4BE2A38283CC8A9000099E5 /* Toolbox */; };
 		E4BE2A47283DFD48000099E5 /* WishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BE2A46283DFD48000099E5 /* WishListViewController.swift */; };
 		E4BE2A49283DFD5F000099E5 /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BE2A48283DFD5F000099E5 /* ReservationViewController.swift */; };
 		E4BE2A4C283E0500000099E5 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BE2A4B283E0500000099E5 /* UIImage+Extensions.swift */; };
+		E4F11DA6283F28330035CBC2 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F11DA5283F28330035CBC2 /* Observable.swift */; };
+		E4F11DAA283F5B710035CBC2 /* LocationSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F11DA9283F5B710035CBC2 /* LocationSearchController.swift */; };
+		E4F11DAD283F5F100035CBC2 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F11DAC283F5F100035CBC2 /* SearchResultViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E4409DD3283B2A0E005C6BA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4409DD5283B2A0E005C6BA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E4409DD7283B2A0E005C6BA1 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		E4409DD7283B2A0E005C6BA1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E4409DDC283B2A12005C6BA1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E4409DDF283B2A12005C6BA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E4409DE1283B2A12005C6BA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E4588F98283E15AC00544A6D /* ScrollableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableView.swift; sourceTree = "<group>"; };
 		E4588F9C283E281E00544A6D /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		E45F2A7A283B2CCC00F0CB7C /* debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
 		E45F2A7B283B2CD300F0CB7C /* release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
 		E45F2A7D283B2F2200F0CB7C /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
 		E45F2A7E283B2F4F00F0CB7C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		E471A0992840673E00232E5F /* SectionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionFactory.swift; sourceTree = "<group>"; };
+		E471A09D284072F500232E5F /* HeroCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroCollectionViewCell.swift; sourceTree = "<group>"; };
+		E471A09F2840731300232E5F /* NearCityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearCityCollectionViewCell.swift; sourceTree = "<group>"; };
+		E471A0A12840732500232E5F /* RecommendationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationCollectionViewCell.swift; sourceTree = "<group>"; };
+		E471A0A62840B04D00232E5F /* TitleSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSupplementaryView.swift; sourceTree = "<group>"; };
+		E471A0A92840BA7600232E5F /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E4BE2A37283CC86E000099E5 /* Toolbox */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Toolbox; sourceTree = "<group>"; };
 		E4BE2A3D283DFA7B000099E5 /* AirBnb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirBnb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4BE2A46283DFD48000099E5 /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewController.swift; sourceTree = "<group>"; };
 		E4BE2A48283DFD5F000099E5 /* ReservationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewController.swift; sourceTree = "<group>"; };
 		E4BE2A4B283E0500000099E5 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		E4F11DA5283F28330035CBC2 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		E4F11DA9283F5B710035CBC2 /* LocationSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchController.swift; sourceTree = "<group>"; };
+		E4F11DAC283F5F100035CBC2 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,14 +91,6 @@
 			path = AirBnb;
 			sourceTree = "<group>";
 		};
-		E4588F97283E158F00544A6D /* View */ = {
-			isa = PBXGroup;
-			children = (
-				E4588F98283E15AC00544A6D /* ScrollableView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		E45F2A81283B30C300F0CB7C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +99,14 @@
 				E4409DDE283B2A12005C6BA1 /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		E471A0A82840BA6900232E5F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E471A0A92840BA7600232E5F /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		E4BE2A36283CC86E000099E5 /* Frameworks */ = {
@@ -113,7 +129,6 @@
 		E4BE2A40283DFBA3000099E5 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				E4588F97283E158F00544A6D /* View */,
 				E4BE2A41283DFBAB000099E5 /* Scenes */,
 				E4BE2A42283DFBFF000099E5 /* Utils */,
 			);
@@ -123,6 +138,7 @@
 		E4BE2A41283DFBAB000099E5 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				E4F11DAB283F5F030035CBC2 /* Search */,
 				E4BE2A43283DFC46000099E5 /* Home */,
 				E4BE2A44283DFD1F000099E5 /* WishList */,
 				E4BE2A45283DFD28000099E5 /* Reservation */,
@@ -134,6 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				E4BE2A4A283E04EC000099E5 /* Extensions */,
+				E4F11DA5283F28330035CBC2 /* Observable.swift */,
+				E471A0992840673E00232E5F /* SectionFactory.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -141,7 +159,12 @@
 		E4BE2A43283DFC46000099E5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				E4409DD7283B2A0E005C6BA1 /* HomeController.swift */,
+				E471A0A82840BA6900232E5F /* ViewModel */,
+				E4409DD7283B2A0E005C6BA1 /* HomeViewController.swift */,
+				E471A0A62840B04D00232E5F /* TitleSupplementaryView.swift */,
+				E471A09D284072F500232E5F /* HeroCollectionViewCell.swift */,
+				E471A09F2840731300232E5F /* NearCityCollectionViewCell.swift */,
+				E471A0A12840732500232E5F /* RecommendationCollectionViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -169,6 +192,15 @@
 				E4588F9C283E281E00544A6D /* UIColor+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E4F11DAB283F5F030035CBC2 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				E4F11DA9283F5B710035CBC2 /* LocationSearchController.swift */,
+				E4F11DAC283F5F100035CBC2 /* SearchResultViewController.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,13 +319,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4F11DA6283F28330035CBC2 /* Observable.swift in Sources */,
 				E4BE2A49283DFD5F000099E5 /* ReservationViewController.swift in Sources */,
-				E4409DD8283B2A0E005C6BA1 /* HomeController.swift in Sources */,
+				E471A0A02840731300232E5F /* NearCityCollectionViewCell.swift in Sources */,
+				E471A0AA2840BA7600232E5F /* HomeViewModel.swift in Sources */,
+				E4F11DAD283F5F100035CBC2 /* SearchResultViewController.swift in Sources */,
+				E4F11DAA283F5B710035CBC2 /* LocationSearchController.swift in Sources */,
+				E471A09E284072F500232E5F /* HeroCollectionViewCell.swift in Sources */,
+				E471A09A2840673E00232E5F /* SectionFactory.swift in Sources */,
+				E4409DD8283B2A0E005C6BA1 /* HomeViewController.swift in Sources */,
 				E4BE2A47283DFD48000099E5 /* WishListViewController.swift in Sources */,
+				E471A0A72840B04D00232E5F /* TitleSupplementaryView.swift in Sources */,
 				E4588F9D283E281E00544A6D /* UIColor+Extensions.swift in Sources */,
 				E4BE2A4C283E0500000099E5 /* UIImage+Extensions.swift in Sources */,
+				E471A0A22840732500232E5F /* RecommendationCollectionViewCell.swift in Sources */,
 				E4409DD4283B2A0E005C6BA1 /* AppDelegate.swift in Sources */,
-				E4588F99283E15AC00544A6D /* ScrollableView.swift in Sources */,
 				E4409DD6283B2A0E005C6BA1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,6 +479,7 @@
 				INFOPLIST_FILE = AirBnb/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
@@ -468,6 +509,7 @@
 				INFOPLIST_FILE = AirBnb/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
