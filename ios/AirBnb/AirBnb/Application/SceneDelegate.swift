@@ -44,6 +44,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       reservationController
     ]
 
+    tabBarController.tabBar.backgroundColor = .gray6
+    tabBarController.tabBar.addTopBorder(with: .gray4, andWidth: 0.5)
+
     window = UIWindow(windowScene: scene)
     window?.rootViewController = tabBarController
     window?.makeKeyAndVisible()
