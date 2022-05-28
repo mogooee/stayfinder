@@ -137,7 +137,7 @@ extension HomeViewController {
     nearCitySnapshot.append((0 ..< 10).map { String($0) })
 
     var recommendSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
-    recommendSnapshot.append((10 ..< 20).map { String($0) })
+    recommendSnapshot.append((10 ..< 20).map { "\($0)___\(viewModel.bannerImage)" })
 
     dataSource.apply(heroSnapshot, to: .hero, animatingDifferences: true)
     dataSource.apply(nearCitySnapshot, to: .nearCities, animatingDifferences: true)
@@ -173,8 +173,19 @@ extension HomeViewController {
   }
 
   private func createRecommendationCellRegistration() -> UICollectionView.CellRegistration<RecommendationCollectionViewCell, String> {
-    UICollectionView.CellRegistration<RecommendationCollectionViewCell, String> { cell, _, _ in
-      cell.backgroundColor = .blue
+    UICollectionView.CellRegistration<RecommendationCollectionViewCell, String> { cell, _, item in
+      let imageUrl = item.components(separatedBy: "___")[1]
+
+      URLSession.shared.dataTask(with: URL(string: imageUrl)!) { data, _, error in
+        guard let data = data, error == nil else {
+          return
+        }
+
+        DispatchQueue.main.async {
+          cell.setData(title: "자연생활을 만끽할 수 있는 숙소", image: UIImage(data: data))
+        }
+
+      }.resume()
     }
   }
 }

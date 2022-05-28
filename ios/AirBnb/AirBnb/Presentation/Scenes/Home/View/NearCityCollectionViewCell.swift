@@ -71,7 +71,7 @@ class NearCityCollectionViewCell: UICollectionViewCell {
     subtitle.text = text
   }
 
-  func setData(title: String, subtitle: String, image: UIImage?) {
+  func setData(title: String, subtitle: String, image: UIImage? = nil) {
     setTitle(title)
     setSubtitle(subtitle)
     setImage(image)

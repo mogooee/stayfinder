@@ -33,18 +33,19 @@ enum SectionFactory {
 
     let verticalGroup = NSCollectionLayoutGroup.vertical(
       layoutSize: .init(
-        widthDimension: .fractionalWidth(0.8),
+        widthDimension: .fractionalWidth(0.7),
         heightDimension: .fractionalHeight(0.3)
       ),
       subitem: item,
       count: 2 // 그룹당 2개만 배치
     )
 
-    verticalGroup.interItemSpacing = .fixed(5)
+    verticalGroup.interItemSpacing = .fixed(24)
 
     let section = NSCollectionLayoutSection(group: verticalGroup)
-    section.interGroupSpacing = 5
+    section.interGroupSpacing = 16
     section.orthogonalScrollingBehavior = .groupPaging
+    section.contentInsets = .init(top: 24, leading: 16, bottom: 0, trailing: 16)
 
     section.boundarySupplementaryItems = [
       .init(
@@ -65,18 +66,17 @@ enum SectionFactory {
 
     let horizontalGroup = NSCollectionLayoutGroup.horizontal(
       layoutSize: .init(
-        widthDimension: .fractionalWidth(0.8),
+        widthDimension: .fractionalWidth(0.7),
         heightDimension: .fractionalHeight(0.4)
       ),
       subitem: item,
-      count: 1 // 그룹당 1개만 배치
+      count: 1
     )
 
-    horizontalGroup.interItemSpacing = .flexible(5)
-
     let section = NSCollectionLayoutSection(group: horizontalGroup)
-    section.interGroupSpacing = 5
+    section.interGroupSpacing = 16
     section.orthogonalScrollingBehavior = .groupPaging
+    section.contentInsets = .init(top: 28, leading: 16, bottom: 48, trailing: 16)
 
     section.boundarySupplementaryItems = [
       .init(
