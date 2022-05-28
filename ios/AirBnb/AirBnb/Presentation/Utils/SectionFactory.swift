@@ -17,7 +17,7 @@ enum SectionFactory {
     let group = NSCollectionLayoutGroup.vertical(
       layoutSize: .init(
         widthDimension: .fractionalWidth(1),
-        heightDimension: .fractionalHeight(0.5)
+        heightDimension: .fractionalWidth(1)
       ),
       subitems: [item]
     )
@@ -33,8 +33,8 @@ enum SectionFactory {
 
     let verticalGroup = NSCollectionLayoutGroup.vertical(
       layoutSize: .init(
-        widthDimension: .fractionalWidth(0.7),
-        heightDimension: .fractionalHeight(0.3)
+        widthDimension: .fractionalWidth(0.73),
+        heightDimension: .fractionalWidth(0.4)
       ),
       subitem: item,
       count: 2 // 그룹당 2개만 배치
@@ -66,8 +66,8 @@ enum SectionFactory {
 
     let horizontalGroup = NSCollectionLayoutGroup.horizontal(
       layoutSize: .init(
-        widthDimension: .fractionalWidth(0.7),
-        heightDimension: .fractionalHeight(0.4)
+        widthDimension: .fractionalWidth(0.73),
+        heightDimension: .fractionalWidth(0.9)
       ),
       subitem: item,
       count: 1

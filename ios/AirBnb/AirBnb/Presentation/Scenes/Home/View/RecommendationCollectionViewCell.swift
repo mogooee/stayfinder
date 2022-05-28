@@ -34,7 +34,8 @@ class RecommendationCollectionViewCell: UICollectionViewCell {
 
   private func configureTitleLabel() {
     title.numberOfLines = 0
-    title.font = .preferredFont(forTextStyle: .title3)
+    title.font = .systemFont(ofSize: 17, weight: .bold)
+    title.textColor = .gray1
   }
 
   private func configureImageView() {

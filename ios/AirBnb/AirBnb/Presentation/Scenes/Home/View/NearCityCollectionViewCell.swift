@@ -29,8 +29,15 @@ class NearCityCollectionViewCell: UICollectionViewCell {
   }
 
   private func configureAttributes() {
+    configureThumbnailView()
     configureCityNameLabel()
     configureDistanceLabel()
+  }
+
+  private func configureThumbnailView() {
+    thumbnailView.layer.masksToBounds = true
+    thumbnailView.layer.cornerCurve = .continuous
+    thumbnailView.layer.cornerRadius = 10
   }
 
   private func configureCityNameLabel() {
@@ -39,11 +46,13 @@ class NearCityCollectionViewCell: UICollectionViewCell {
 
   private func configureDistanceLabel() {
     subtitle.adjustsFontSizeToFitWidth = true
+    subtitle.textColor = .gray3
   }
 
   private func configureLayout() {
     contentView.addSubview(thumbnailView)
     thumbnailView.snp.makeConstraints { make in
+      make.size.equalTo(contentView.snp.height)
       make.top.equalTo(contentView)
       make.leading.equalTo(contentView)
       make.bottom.equalTo(contentView)
@@ -51,11 +60,12 @@ class NearCityCollectionViewCell: UICollectionViewCell {
 
     let stack = UIStackView(arrangedSubviews: [title, subtitle])
     stack.axis = .vertical
+    stack.spacing = 4
 
     contentView.addSubview(stack)
     stack.snp.makeConstraints { make in
       make.centerY.equalTo(thumbnailView)
-      make.leading.equalTo(thumbnailView).offset(6)
+      make.leading.equalTo(thumbnailView.snp.trailing).offset(6)
     }
   }
 

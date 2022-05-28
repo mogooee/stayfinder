@@ -134,7 +134,7 @@ extension HomeViewController {
     heroSnapshot.append([viewModel.bannerImage])
 
     var nearCitySnapshot = NSDiffableDataSourceSectionSnapshot<String>()
-    nearCitySnapshot.append((0 ..< 10).map { String($0) })
+    nearCitySnapshot.append((0 ..< 10).map { "\($0)___\(viewModel.bannerImage)" })
 
     var recommendSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
     recommendSnapshot.append((10 ..< 20).map { "\($0)___\(viewModel.bannerImage)" })
@@ -167,8 +167,19 @@ extension HomeViewController {
   }
 
   private func createNearCityCellRegistration() -> UICollectionView.CellRegistration<NearCityCollectionViewCell, String> {
-    UICollectionView.CellRegistration<NearCityCollectionViewCell, String> { cell, _, _ in
-      cell.backgroundColor = .red
+    UICollectionView.CellRegistration<NearCityCollectionViewCell, String> { cell, _, item in
+      let imageUrl = item.components(separatedBy: "___")[1]
+
+      URLSession.shared.dataTask(with: URL(string: imageUrl)!) { data, _, error in
+        guard let data = data, error == nil else {
+          return
+        }
+
+        DispatchQueue.main.async {
+          cell.setData(title: "서울", subtitle: "차로 30분 거리", image: UIImage(data: data))
+        }
+
+      }.resume()
     }
   }
 
