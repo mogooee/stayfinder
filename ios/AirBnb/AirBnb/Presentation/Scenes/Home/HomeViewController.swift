@@ -8,34 +8,45 @@
 import SnapKit
 import UIKit
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
   private let searchBar = UISearchBar()
   private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-  private lazy var dataSource: UICollectionViewDiffableDataSource<Section, String> = configureDataSource()
+  private lazy var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable> = configureDataSource()
 
-  var viewModel = DefaultHomeViewModel()
+  private var viewModel: HomeViewModel?
+
+  static func create(with viewModel: HomeViewModel) -> HomeViewController {
+    let viewController = HomeViewController()
+    viewController.viewModel = viewModel
+    return viewController
+  }
 
   // MARK: - Life Cycles
   override func viewDidLoad() {
     super.viewDidLoad()
     configureUI()
-    configureDataSourceSnapshot()
+
+    guard let viewModel = viewModel else {
+      return
+    }
+
+    bind(to: viewModel)
   }
 
   // MARK: - UI Configuration
   private func configureUI() {
     view.backgroundColor = .systemBackground
-    configureSearchBar()
-    configureCollectionView()
+    configureSearchBarAttributes()
+    configureCollectionViewLayout()
   }
 
-  private func configureSearchBar() {
+  private func configureSearchBarAttributes() {
     navigationItem.titleView = searchBar
     searchBar.placeholder = "어디로 여행가세요?"
     searchBar.delegate = self
   }
 
-  private func configureCollectionView() {
+  private func configureCollectionViewLayout() {
     view.addSubview(collectionView)
     collectionView.snp.makeConstraints { make in
       make.edges.equalTo(self.view.safeAreaLayoutGuide)
@@ -47,6 +58,7 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UISearchBarDelegate {
   func searchBarTextDidBeginEditing(_: UISearchBar) {
     searchBar.resignFirstResponder()
+
     DispatchQueue.main.async { [weak self] in
       self?.navigationController?.pushViewController(LocationSearchController(), animated: true)
     }
@@ -55,7 +67,7 @@ extension HomeViewController: UISearchBarDelegate {
 
 // MARK: - Compositional Layout Configuration
 extension HomeViewController {
-  enum Section: Int {
+  private enum Section: Int {
     case hero
     case nearCities
     case recommendation
@@ -84,37 +96,98 @@ extension HomeViewController {
   }
 }
 
+// MARK: - CollectionView's UI Component Registration
+extension HomeViewController {
+  private func createSectionHeaderRegistration() -> UICollectionView.SupplementaryRegistration<TitleSupplementaryView> {
+    UICollectionView.SupplementaryRegistration<TitleSupplementaryView>(elementKind: UICollectionView.elementKindSectionHeader) { supplementaryView, _, indexPath in
+      supplementaryView.label.text = self.viewModel?.getSectionTitle(at: indexPath.section)
+      supplementaryView.label.numberOfLines = 0
+    }
+  }
+
+  private func createHeroCellRegistration() -> UICollectionView.CellRegistration<HeroCollectionViewCell, String> {
+    UICollectionView.CellRegistration<HeroCollectionViewCell, String> { cell, _, item in
+      URLSession.shared.dataTask(with: URL(string: item)!) { data, _, error in
+        guard let data = data, error == nil else {
+          return
+        }
+
+        DispatchQueue.main.async {
+          cell.setImage(UIImage(data: data))
+        }
+
+      }.resume()
+    }
+  }
+
+  private func createNearCityCellRegistration() -> UICollectionView.CellRegistration<NearCityCollectionViewCell, City> {
+    UICollectionView.CellRegistration<NearCityCollectionViewCell, City> { cell, _, item in
+      let imageUrl = item.imageUrl
+
+      URLSession.shared.dataTask(with: URL(string: imageUrl)!) { data, _, error in
+        guard let data = data, error == nil else {
+          return
+        }
+
+        DispatchQueue.main.async {
+          cell.setData(title: item.name, subtitle: item.distance, image: UIImage(data: data))
+        }
+
+      }.resume()
+    }
+  }
+
+  private func createRecommendationCellRegistration() -> UICollectionView.CellRegistration<RecommendationCollectionViewCell, Accommodation> {
+    UICollectionView.CellRegistration<RecommendationCollectionViewCell, Accommodation> { cell, _, item in
+      let imageUrl = item.imageUrl
+
+      URLSession.shared.dataTask(with: URL(string: imageUrl)!) { data, _, error in
+        guard let data = data, error == nil else {
+          return
+        }
+
+        DispatchQueue.main.async {
+          cell.setData(title: item.description, image: UIImage(data: data))
+        }
+
+      }.resume()
+    }
+  }
+}
+
 // MARK: - CollectionView Diffable DataSource
 extension HomeViewController {
-  private func configureDataSource() -> UICollectionViewDiffableDataSource<Section, String> {
+  private func configureDataSource() -> UICollectionViewDiffableDataSource<Section, AnyHashable> {
     let heroCellRegistration = createHeroCellRegistration()
     let cityCellRegistration = createNearCityCellRegistration()
     let recommendationCellRegistration = createRecommendationCellRegistration()
 
-    let dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+    let dataSource = UICollectionViewDiffableDataSource<Section, AnyHashable>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
       guard let section = Section(rawValue: indexPath.section) else {
         return nil
       }
 
-      switch section {
-      case .hero:
+      switch item {
+      case let data as String where section == .hero:
         return collectionView.dequeueConfiguredReusableCell(
           using: heroCellRegistration,
           for: indexPath,
-          item: item
+          item: data
         )
-      case .nearCities:
+      case let data as City where section == .nearCities:
         return collectionView.dequeueConfiguredReusableCell(
           using: cityCellRegistration,
           for: indexPath,
-          item: item
+          item: data
         )
-      case .recommendation:
+      case let data as Accommodation where section == .recommendation:
         return collectionView.dequeueConfiguredReusableCell(
           using: recommendationCellRegistration,
           for: indexPath,
-          item: item
+          item: data
         )
+      default:
+        return nil
       }
     })
 
@@ -129,54 +202,38 @@ extension HomeViewController {
     return dataSource
   }
 
-  private func configureDataSourceSnapshot() {
-    var heroSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
-    heroSnapshot.append([viewModel.bannerImage])
+  private func bind(to viewModel: HomeViewModel) {
+    viewModel.state.bannerImage.bind(to: self) { [weak self] image in
 
-    var nearCitySnapshot = NSDiffableDataSourceSectionSnapshot<String>()
-    nearCitySnapshot.append((0 ..< 10).map { String($0) })
+      guard !image.isEmpty else {
+        return
+      }
 
-    var recommendSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
-    recommendSnapshot.append((10 ..< 20).map { String($0) })
+      var heroSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
+      heroSnapshot.append([image])
 
-    dataSource.apply(heroSnapshot, to: .hero, animatingDifferences: true)
-    dataSource.apply(nearCitySnapshot, to: .nearCities, animatingDifferences: true)
-    dataSource.apply(recommendSnapshot, to: .recommendation, animatingDifferences: true)
-  }
-
-  private func createSectionHeaderRegistration() -> UICollectionView.SupplementaryRegistration<TitleSupplementaryView> {
-    UICollectionView.SupplementaryRegistration<TitleSupplementaryView>(elementKind: UICollectionView.elementKindSectionHeader) { supplementaryView, _, indexPath in
-      supplementaryView.label.text = self.viewModel.getSectionTitle(at: indexPath.section)
-      supplementaryView.label.numberOfLines = 0
+      self?.dataSource.apply(heroSnapshot, to: .hero, animatingDifferences: true)
     }
-  }
 
-  private func createHeroCellRegistration() -> UICollectionView.CellRegistration<HeroCollectionViewCell, String> {
-    UICollectionView.CellRegistration<HeroCollectionViewCell, String> { cell, _, item in
-      cell.backgroundColor = .orange
+    viewModel.state.cities.bind(to: self) { [weak self] items in
+      guard !items.isEmpty else {
+        return
+      }
 
-      URLSession.shared.dataTask(with: URL(string: item)!) { data, _, error in
-        guard let data = data, error == nil else {
-          return
-        }
-
-        DispatchQueue.main.async {
-          cell.setImage(UIImage(data: data))
-        }
-
-      }.resume()
+      var nearCitySnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
+      nearCitySnapshot.append(items)
+      self?.dataSource.apply(nearCitySnapshot, to: .nearCities, animatingDifferences: true)
     }
-  }
 
-  private func createNearCityCellRegistration() -> UICollectionView.CellRegistration<NearCityCollectionViewCell, String> {
-    UICollectionView.CellRegistration<NearCityCollectionViewCell, String> { cell, _, _ in
-      cell.backgroundColor = .red
-    }
-  }
+    viewModel.state.recommendations.bind(to: self, with: { [weak self] items in
+      guard !items.isEmpty else {
+        return
+      }
 
-  private func createRecommendationCellRegistration() -> UICollectionView.CellRegistration<RecommendationCollectionViewCell, String> {
-    UICollectionView.CellRegistration<RecommendationCollectionViewCell, String> { cell, _, _ in
-      cell.backgroundColor = .blue
-    }
+      var recommendSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
+      recommendSnapshot.append(items)
+
+      self?.dataSource.apply(recommendSnapshot, to: .recommendation, animatingDifferences: true)
+    })
   }
 }

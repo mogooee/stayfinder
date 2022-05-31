@@ -21,7 +21,6 @@ let package = Package(
     // .package(url: /* package url */, from: "1.0.0"),
     .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.49.0"),
     .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.6.0")),
-    .package(url: "https://github.com/ReactiveX/RxSwift.git", branch: "6.5.0"),
     .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.6.1"))
   ],
   targets: [
@@ -30,8 +29,6 @@ let package = Package(
     .target(
       name: "Toolbox",
       dependencies: [
-        "RxSwift",
-        .product(name: "RxCocoa", package: "RxSwift"),
         "SnapKit",
         "Alamofire"
       ]

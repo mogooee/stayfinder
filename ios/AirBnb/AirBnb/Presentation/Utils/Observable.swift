@@ -37,10 +37,4 @@ final class Observable<T> {
     observers.append(Observer(identity: observer, block: block))
     block(value)
   }
-
-  func unbind(observer: AnyObject) {
-    observers = observers.filter {
-      $0.identity !== observer
-    }
-  }
 }

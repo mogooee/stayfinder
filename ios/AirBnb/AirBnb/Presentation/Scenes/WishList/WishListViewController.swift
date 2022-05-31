@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class WishListViewController: UIViewController {
+final class WishListViewController: UIViewController {
   // MARK: - Life Cycles
   override func viewDidLoad() {
     super.viewDidLoad()

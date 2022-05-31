@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     let tabBarController = UITabBarController()
-    let homeController = HomeViewController()
+    let homeController = HomeViewController.create(with: DefaultHomeViewModel())
     let wishListController = WishListViewController()
     let reservationController = ReservationViewController()
 
@@ -43,6 +43,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       UINavigationController(rootViewController: wishListController),
       reservationController
     ]
+
+    tabBarController.tabBar.backgroundColor = .gray6
+    tabBarController.tabBar.addTopBorder(with: .gray4, andWidth: 0.5)
 
     window = UIWindow(windowScene: scene)
     window?.rootViewController = tabBarController

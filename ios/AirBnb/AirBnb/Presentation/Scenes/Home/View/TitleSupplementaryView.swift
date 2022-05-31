@@ -15,21 +15,28 @@ class TitleSupplementaryView: UICollectionReusableView {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    configure()
+    configureUI()
   }
 
   required init?(coder: NSCoder) {
     super.init(coder: coder)
-    configure()
+    configureUI()
   }
 
-  private func configure() {
-    addSubview(label)
+  private func configureUI() {
+    configureLabel()
+    configureLayout()
+  }
 
+  private func configureLabel() {
     label.adjustsFontForContentSizeCategory = true
     label.font = UIFont.preferredFont(forTextStyle: .title2)
+  }
+
+  private func configureLayout() {
+    addSubview(label)
     label.snp.makeConstraints { make in
-      make.edges.equalToSuperview().inset(10)
+      make.edges.equalToSuperview()
     }
   }
 }
