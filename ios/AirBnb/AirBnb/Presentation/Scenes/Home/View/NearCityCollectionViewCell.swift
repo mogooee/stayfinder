@@ -68,7 +68,10 @@ class NearCityCollectionViewCell: UICollectionViewCell {
       make.leading.equalTo(thumbnailView.snp.trailing).offset(6)
     }
   }
+}
 
+// MARK: - Functionalities
+extension NearCityCollectionViewCell {
   private func setImage(_ image: UIImage?) {
     thumbnailView.image = image
   }

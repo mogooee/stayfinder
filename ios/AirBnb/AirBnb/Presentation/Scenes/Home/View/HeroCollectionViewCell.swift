@@ -83,7 +83,10 @@ class HeroCollectionViewCell: UICollectionViewCell {
       make.bottom.lessThanOrEqualTo(contentView)
     }
   }
+}
 
+// MARK: - Functionalties
+extension HeroCollectionViewCell {
   func setImage(_ image: UIImage?) {
     backgroundImageView.image = image
   }

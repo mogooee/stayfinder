@@ -21,7 +21,7 @@ final class HomeViewController: UIViewController {
     return viewController
   }
 
-	// MARK: - Life Cycles
+  // MARK: - Life Cycles
   override func viewDidLoad() {
     super.viewDidLoad()
     configureUI()

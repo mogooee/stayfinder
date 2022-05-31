@@ -60,7 +60,10 @@ class RecommendationCollectionViewCell: UICollectionViewCell {
       make.trailing.equalTo(contentView)
     }
   }
+}
 
+// MARK: - Functionalities
+extension RecommendationCollectionViewCell {
   private func setTitle(_ text: String?) {
     title.text = text
   }
