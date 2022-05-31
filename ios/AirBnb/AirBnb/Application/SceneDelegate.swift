@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     let tabBarController = UITabBarController()
-    let homeController = HomeViewController()
+    let homeController = HomeViewController.create(with: DefaultHomeViewModel())
     let wishListController = WishListViewController()
     let reservationController = ReservationViewController()
 

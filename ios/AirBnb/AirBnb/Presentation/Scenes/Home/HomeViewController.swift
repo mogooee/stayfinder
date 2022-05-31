@@ -13,13 +13,24 @@ final class HomeViewController: UIViewController {
   private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
   private lazy var dataSource: UICollectionViewDiffableDataSource<Section, String> = configureDataSource()
 
-  private var viewModel = DefaultHomeViewModel()
+  private var viewModel: HomeViewModel?
 
-  // MARK: - Life Cycles
+  static func create(with viewModel: HomeViewModel) -> HomeViewController {
+    let viewController = HomeViewController()
+    viewController.viewModel = viewModel
+    return viewController
+  }
+
+	// MARK: - Life Cycles
   override func viewDidLoad() {
     super.viewDidLoad()
     configureUI()
-    configureDataSourceSnapshot()
+
+    guard let viewModel = viewModel else {
+      return
+    }
+
+    bind(to: viewModel)
   }
 
   // MARK: - UI Configuration
@@ -47,6 +58,7 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: UISearchBarDelegate {
   func searchBarTextDidBeginEditing(_: UISearchBar) {
     searchBar.resignFirstResponder()
+
     DispatchQueue.main.async { [weak self] in
       self?.navigationController?.pushViewController(LocationSearchController(), animated: true)
     }
@@ -84,69 +96,11 @@ extension HomeViewController {
   }
 }
 
-// MARK: - CollectionView Diffable DataSource
+// MARK: - CollectionView's UI Component Registration
 extension HomeViewController {
-  private func configureDataSource() -> UICollectionViewDiffableDataSource<Section, String> {
-    let heroCellRegistration = createHeroCellRegistration()
-    let cityCellRegistration = createNearCityCellRegistration()
-    let recommendationCellRegistration = createRecommendationCellRegistration()
-
-    let dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
-      guard let section = Section(rawValue: indexPath.section) else {
-        return nil
-      }
-
-      switch section {
-      case .hero:
-        return collectionView.dequeueConfiguredReusableCell(
-          using: heroCellRegistration,
-          for: indexPath,
-          item: item
-        )
-      case .nearCities:
-        return collectionView.dequeueConfiguredReusableCell(
-          using: cityCellRegistration,
-          for: indexPath,
-          item: item
-        )
-      case .recommendation:
-        return collectionView.dequeueConfiguredReusableCell(
-          using: recommendationCellRegistration,
-          for: indexPath,
-          item: item
-        )
-      }
-    })
-
-    let sectionHeaderRegistration = createSectionHeaderRegistration()
-
-    dataSource.supplementaryViewProvider = { collectionView, _, indexPath in
-      collectionView.dequeueConfiguredReusableSupplementary(
-        using: sectionHeaderRegistration, for: indexPath
-      )
-    }
-
-    return dataSource
-  }
-
-  private func configureDataSourceSnapshot() {
-    var heroSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
-    heroSnapshot.append([viewModel.bannerImage])
-
-    var nearCitySnapshot = NSDiffableDataSourceSectionSnapshot<String>()
-    nearCitySnapshot.append((0 ..< 10).map { "\($0)___\(viewModel.bannerImage)" })
-
-    var recommendSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
-    recommendSnapshot.append((10 ..< 20).map { "\($0)___\(viewModel.bannerImage)" })
-
-    dataSource.apply(heroSnapshot, to: .hero, animatingDifferences: true)
-    dataSource.apply(nearCitySnapshot, to: .nearCities, animatingDifferences: true)
-    dataSource.apply(recommendSnapshot, to: .recommendation, animatingDifferences: true)
-  }
-
   private func createSectionHeaderRegistration() -> UICollectionView.SupplementaryRegistration<TitleSupplementaryView> {
     UICollectionView.SupplementaryRegistration<TitleSupplementaryView>(elementKind: UICollectionView.elementKindSectionHeader) { supplementaryView, _, indexPath in
-      supplementaryView.label.text = self.viewModel.getSectionTitle(at: indexPath.section)
+      supplementaryView.label.text = self.viewModel?.getSectionTitle(at: indexPath.section)
       supplementaryView.label.numberOfLines = 0
     }
   }
@@ -198,5 +152,86 @@ extension HomeViewController {
 
       }.resume()
     }
+  }
+}
+
+// MARK: - CollectionView Diffable DataSource
+extension HomeViewController {
+  private func configureDataSource() -> UICollectionViewDiffableDataSource<Section, String> {
+    let heroCellRegistration = createHeroCellRegistration()
+    let cityCellRegistration = createNearCityCellRegistration()
+    let recommendationCellRegistration = createRecommendationCellRegistration()
+
+    let dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+      guard let section = Section(rawValue: indexPath.section) else {
+        return nil
+      }
+
+      switch section {
+      case .hero:
+        return collectionView.dequeueConfiguredReusableCell(
+          using: heroCellRegistration,
+          for: indexPath,
+          item: item
+        )
+      case .nearCities:
+        return collectionView.dequeueConfiguredReusableCell(
+          using: cityCellRegistration,
+          for: indexPath,
+          item: item
+        )
+      case .recommendation:
+        return collectionView.dequeueConfiguredReusableCell(
+          using: recommendationCellRegistration,
+          for: indexPath,
+          item: item
+        )
+      }
+    })
+
+    let sectionHeaderRegistration = createSectionHeaderRegistration()
+
+    dataSource.supplementaryViewProvider = { collectionView, _, indexPath in
+      collectionView.dequeueConfiguredReusableSupplementary(
+        using: sectionHeaderRegistration, for: indexPath
+      )
+    }
+
+    return dataSource
+  }
+
+  private func bind(to viewModel: HomeViewModel) {
+    viewModel.state.bannerImage.bind(to: self) { [weak self] image in
+
+      guard !image.isEmpty else {
+        return
+      }
+
+      var heroSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
+      heroSnapshot.append([image])
+
+      self?.dataSource.apply(heroSnapshot, to: .hero, animatingDifferences: true)
+    }
+
+    viewModel.state.cities.bind(to: self) { [weak self] items in
+      guard !items.isEmpty else {
+        return
+      }
+
+      var nearCitySnapshot = NSDiffableDataSourceSectionSnapshot<String>()
+      nearCitySnapshot.append((0 ..< 10).map { "\($0)___\(viewModel.bannerImage.value)" })
+      self?.dataSource.apply(nearCitySnapshot, to: .nearCities, animatingDifferences: true)
+    }
+
+    viewModel.state.recommendations.bind(to: self, with: { [weak self] items in
+      guard !items.isEmpty else {
+        return
+      }
+
+      var recommendSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
+      recommendSnapshot.append((10 ..< 20).map { "\($0)___\(viewModel.bannerImage.value)" })
+
+      self?.dataSource.apply(recommendSnapshot, to: .recommendation, animatingDifferences: true)
+    })
   }
 }

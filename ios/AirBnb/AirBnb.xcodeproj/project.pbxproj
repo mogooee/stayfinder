@@ -119,7 +119,6 @@
 		E46F12922845A4E300BB168E /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				E46F12952845A51000BB168E /* New Group */,
 				E46F12942845A50B00BB168E /* Repositories */,
 			);
 			path = Data;
@@ -139,13 +138,6 @@
 			children = (
 			);
 			path = Repositories;
-			sourceTree = "<group>";
-		};
-		E46F12952845A51000BB168E /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		E46F12962845A56E00BB168E /* Entities */ = {
