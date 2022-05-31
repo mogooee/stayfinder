@@ -14,6 +14,8 @@
 		E4409DE0283B2A12005C6BA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4409DDE283B2A12005C6BA1 /* LaunchScreen.storyboard */; };
 		E4583FB7284226BA00A095BB /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4583FB6284226BA00A095BB /* UIView+Extensions.swift */; };
 		E4588F9D283E281E00544A6D /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4588F9C283E281E00544A6D /* UIColor+Extensions.swift */; };
+		E46F12A02845EEC800BB168E /* Equatable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46F129F2845EEC800BB168E /* Equatable+Extensions.swift */; };
+		E46F12A22845EED900BB168E /* Hashable+hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46F12A12845EED900BB168E /* Hashable+hash.swift */; };
 		E471A09A2840673E00232E5F /* SectionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471A0992840673E00232E5F /* SectionFactory.swift */; };
 		E471A09E284072F500232E5F /* HeroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471A09D284072F500232E5F /* HeroCollectionViewCell.swift */; };
 		E471A0A02840731300232E5F /* NearCityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471A09F2840731300232E5F /* NearCityCollectionViewCell.swift */; };
@@ -42,6 +44,8 @@
 		E45F2A7B283B2CD300F0CB7C /* release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
 		E45F2A7D283B2F2200F0CB7C /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
 		E45F2A7E283B2F4F00F0CB7C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		E46F129F2845EEC800BB168E /* Equatable+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Equatable+Extensions.swift"; sourceTree = "<group>"; };
+		E46F12A12845EED900BB168E /* Hashable+hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hashable+hash.swift"; sourceTree = "<group>"; };
 		E471A0992840673E00232E5F /* SectionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionFactory.swift; sourceTree = "<group>"; };
 		E471A09D284072F500232E5F /* HeroCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroCollectionViewCell.swift; sourceTree = "<group>"; };
 		E471A09F2840731300232E5F /* NearCityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearCityCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -241,6 +245,8 @@
 				E4BE2A4B283E0500000099E5 /* UIImage+Extensions.swift */,
 				E4588F9C283E281E00544A6D /* UIColor+Extensions.swift */,
 				E4583FB6284226BA00A095BB /* UIView+Extensions.swift */,
+				E46F129F2845EEC800BB168E /* Equatable+Extensions.swift */,
+				E46F12A12845EED900BB168E /* Hashable+hash.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -373,6 +379,7 @@
 				E4F11DA6283F28330035CBC2 /* Observable.swift in Sources */,
 				E4BE2A49283DFD5F000099E5 /* ReservationViewController.swift in Sources */,
 				E471A0A02840731300232E5F /* NearCityCollectionViewCell.swift in Sources */,
+				E46F12A02845EEC800BB168E /* Equatable+Extensions.swift in Sources */,
 				E471A0AA2840BA7600232E5F /* HomeViewModel.swift in Sources */,
 				E4F11DAD283F5F100035CBC2 /* SearchResultViewController.swift in Sources */,
 				E4F11DAA283F5B710035CBC2 /* LocationSearchController.swift in Sources */,
@@ -387,6 +394,7 @@
 				E471A0A22840732500232E5F /* RecommendationCollectionViewCell.swift in Sources */,
 				E4409DD4283B2A0E005C6BA1 /* AppDelegate.swift in Sources */,
 				E4409DD6283B2A0E005C6BA1 /* SceneDelegate.swift in Sources */,
+				E46F12A22845EED900BB168E /* Hashable+hash.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
