@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class ReservationViewController: UIViewController {
+final class ReservationViewController: UIViewController {
   // MARK: - Life Cycles
   override func viewDidLoad() {
     super.viewDidLoad()

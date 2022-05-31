@@ -7,11 +7,7 @@
 
 import Foundation
 
-protocol HomeViewModel {
-  func getSectionTitle(at index: Int) -> String
-}
-
-struct DefaultHomeViewModel: HomeViewModel {
+struct DefaultHomeViewModel {
   struct NearCity {
     var image: String = "gear"
     let title: String

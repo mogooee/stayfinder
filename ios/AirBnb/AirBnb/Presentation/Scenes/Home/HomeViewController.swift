@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
   private let searchBar = UISearchBar()
   private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
   private lazy var dataSource: UICollectionViewDiffableDataSource<Section, String> = configureDataSource()

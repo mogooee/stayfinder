@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LocationSearchController: UIViewController {
+final class LocationSearchController: UIViewController {
   private let searchController = UISearchController()
   private var searchResultController: SearchResultViewController = {
     let config = UICollectionLayoutListConfiguration(appearance: .grouped)
