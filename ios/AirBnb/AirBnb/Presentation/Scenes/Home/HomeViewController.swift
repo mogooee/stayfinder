@@ -11,7 +11,7 @@ import UIKit
 final class HomeViewController: UIViewController {
   private let searchBar = UISearchBar()
   private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-  private lazy var dataSource: UICollectionViewDiffableDataSource<Section, String> = configureDataSource()
+  private lazy var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable> = configureDataSource()
 
   private var viewModel: HomeViewModel?
 
@@ -120,9 +120,9 @@ extension HomeViewController {
     }
   }
 
-  private func createNearCityCellRegistration() -> UICollectionView.CellRegistration<NearCityCollectionViewCell, String> {
-    UICollectionView.CellRegistration<NearCityCollectionViewCell, String> { cell, _, item in
-      let imageUrl = item.components(separatedBy: "___")[1]
+  private func createNearCityCellRegistration() -> UICollectionView.CellRegistration<NearCityCollectionViewCell, City> {
+    UICollectionView.CellRegistration<NearCityCollectionViewCell, City> { cell, _, item in
+      let imageUrl = item.imageUrl
 
       URLSession.shared.dataTask(with: URL(string: imageUrl)!) { data, _, error in
         guard let data = data, error == nil else {
@@ -130,16 +130,16 @@ extension HomeViewController {
         }
 
         DispatchQueue.main.async {
-          cell.setData(title: "서울", subtitle: "차로 30분 거리", image: UIImage(data: data))
+          cell.setData(title: item.name, subtitle: item.distance, image: UIImage(data: data))
         }
 
       }.resume()
     }
   }
 
-  private func createRecommendationCellRegistration() -> UICollectionView.CellRegistration<RecommendationCollectionViewCell, String> {
-    UICollectionView.CellRegistration<RecommendationCollectionViewCell, String> { cell, _, item in
-      let imageUrl = item.components(separatedBy: "___")[1]
+  private func createRecommendationCellRegistration() -> UICollectionView.CellRegistration<RecommendationCollectionViewCell, Accommodation> {
+    UICollectionView.CellRegistration<RecommendationCollectionViewCell, Accommodation> { cell, _, item in
+      let imageUrl = item.imageUrl
 
       URLSession.shared.dataTask(with: URL(string: imageUrl)!) { data, _, error in
         guard let data = data, error == nil else {
@@ -147,7 +147,7 @@ extension HomeViewController {
         }
 
         DispatchQueue.main.async {
-          cell.setData(title: "자연생활을 만끽할 수 있는 숙소", image: UIImage(data: data))
+          cell.setData(title: item.description, image: UIImage(data: data))
         }
 
       }.resume()
@@ -157,35 +157,37 @@ extension HomeViewController {
 
 // MARK: - CollectionView Diffable DataSource
 extension HomeViewController {
-  private func configureDataSource() -> UICollectionViewDiffableDataSource<Section, String> {
+  private func configureDataSource() -> UICollectionViewDiffableDataSource<Section, AnyHashable> {
     let heroCellRegistration = createHeroCellRegistration()
     let cityCellRegistration = createNearCityCellRegistration()
     let recommendationCellRegistration = createRecommendationCellRegistration()
 
-    let dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+    let dataSource = UICollectionViewDiffableDataSource<Section, AnyHashable>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
       guard let section = Section(rawValue: indexPath.section) else {
         return nil
       }
 
-      switch section {
-      case .hero:
+      switch item {
+      case let data as String where section == .hero:
         return collectionView.dequeueConfiguredReusableCell(
           using: heroCellRegistration,
           for: indexPath,
-          item: item
+          item: data
         )
-      case .nearCities:
+      case let data as City where section == .nearCities:
         return collectionView.dequeueConfiguredReusableCell(
           using: cityCellRegistration,
           for: indexPath,
-          item: item
+          item: data
         )
-      case .recommendation:
+      case let data as Accommodation where section == .recommendation:
         return collectionView.dequeueConfiguredReusableCell(
           using: recommendationCellRegistration,
           for: indexPath,
-          item: item
+          item: data
         )
+      default:
+        return nil
       }
     })
 
@@ -207,7 +209,7 @@ extension HomeViewController {
         return
       }
 
-      var heroSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
+      var heroSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
       heroSnapshot.append([image])
 
       self?.dataSource.apply(heroSnapshot, to: .hero, animatingDifferences: true)
@@ -218,8 +220,8 @@ extension HomeViewController {
         return
       }
 
-      var nearCitySnapshot = NSDiffableDataSourceSectionSnapshot<String>()
-      nearCitySnapshot.append((0 ..< 10).map { "\($0)___\(viewModel.bannerImage.value)" })
+      var nearCitySnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
+      nearCitySnapshot.append(items)
       self?.dataSource.apply(nearCitySnapshot, to: .nearCities, animatingDifferences: true)
     }
 
@@ -228,8 +230,8 @@ extension HomeViewController {
         return
       }
 
-      var recommendSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
-      recommendSnapshot.append((10 ..< 20).map { "\($0)___\(viewModel.bannerImage.value)" })
+      var recommendSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
+      recommendSnapshot.append(items)
 
       self?.dataSource.apply(recommendSnapshot, to: .recommendation, animatingDifferences: true)
     })
