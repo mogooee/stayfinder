@@ -1,40 +1,25 @@
 import React, { useContext, createContext, useReducer, Dispatch } from 'react';
+import { PeriodType, PriceType, PersonnelType, SearchPropsType } from 'components/SearchBar/types';
 
 interface SearchType {
-  period: object;
-  price: object;
-  personnel: object;
-}
-
-interface PeriodType {
-  checkIn: number;
-  checkOut: number;
-}
-
-interface PriceType {
-  minPrice: number;
-  maxPrice: number;
-}
-
-interface PersonnelType {
-  adult: number;
-  teenager: number;
-  child: number;
+  period: SearchPropsType;
+  price: SearchPropsType;
+  personnel: SearchPropsType;
 }
 
 type ActionType =
   | {
-      type: 'SET_PERIOD';
-      value: PeriodType;
-    }
+    type: 'SET_PERIOD';
+    value: PeriodType;
+  }
   | {
-      type: 'SET_PRICE';
-      value: PriceType;
-    }
+    type: 'SET_PRICE';
+    value: PriceType;
+  }
   | {
-      type: 'SET_PERSONNEL';
-      value: PersonnelType;
-    };
+    type: 'SET_PERSONNEL';
+    value: PersonnelType;
+  };
 
 function searchReducer(searches: SearchType, action: ActionType): SearchType {
   const { type, value } = action;
@@ -43,19 +28,25 @@ function searchReducer(searches: SearchType, action: ActionType): SearchType {
       return {
         ...searches,
         period: {
-          checkIn: value.checkIn,
-          checkOut: value.checkOut,
+          ...searches.period,
+          value: {
+            checkIn: value.checkIn,
+            checkOut: value.checkOut,
+          },
         },
       };
     case 'SET_PRICE':
       return {
         ...searches,
-        price: { minPrice: value.minPrice, maxPrice: value.maxPrice },
+        price: { ...searches.price, value: { minPrice: value.minPrice, maxPrice: value.maxPrice } },
       };
     case 'SET_PERSONNEL':
       return {
         ...searches,
-        personnel: { adult: value.adult, teenager: value.teenager, child: value.child },
+        personnel: {
+          ...searches.personnel,
+          value: { adult: value.adult, teenager: value.teenager, child: value.child },
+        },
       };
     default:
       throw new Error('Unhandled action');
@@ -72,25 +63,25 @@ const initSearch = {
     title: ['체크인', '체크아웃'],
     defaultValue: '날짜입력',
     value: {
-      checkIn: 0,
-      checkOut: 0,
+      checkIn: undefined,
+      checkOut: undefined,
     },
   },
   price: {
     title: '요금',
     defaultValue: '금액대 설정',
     value: {
-      minPrice: 0,
-      maxPrice: 0,
+      minPrice: undefined,
+      maxPrice: undefined,
     },
   },
   personnel: {
     title: '인원',
     defaultValue: '게스트 추가',
     value: {
-      adult: 0,
-      teenager: 0,
-      child: 0,
+      adult: undefined,
+      teenager: undefined,
+      child: undefined,
     },
   },
 };
@@ -113,6 +104,6 @@ export function useSearch() {
 
 export function useAddSearch() {
   const addSearch = useContext(AddSearchContext);
-  if (!addSearch) throw new Error('Cannot find SearchProvider');
+  if (!addSearch) throw new Error('Cannot find AddSearchProvider');
   return addSearch;
 }
