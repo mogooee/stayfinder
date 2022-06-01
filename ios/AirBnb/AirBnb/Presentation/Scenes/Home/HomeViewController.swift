@@ -11,7 +11,7 @@ import UIKit
 final class HomeViewController: UIViewController {
   private let searchBar = UISearchBar()
   private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-  private lazy var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable> = configureDataSource()
+  private lazy var dataSource: UICollectionViewDiffableDataSource<Section, SectionDataSource> = configureDataSource()
 
   private var viewModel: HomeViewModel?
 
@@ -66,11 +66,17 @@ extension HomeViewController: UISearchBarDelegate {
 }
 
 // MARK: - Compositional Layout Configuration
-extension HomeViewController {
+private extension HomeViewController {
   private enum Section: Int {
     case hero
     case nearCities
     case recommendation
+  }
+
+  private enum SectionDataSource: Hashable {
+    case image(String)
+    case city(City)
+    case accommodation(Accommodation)
   }
 
   private func createLayout() -> UICollectionViewCompositionalLayout {
@@ -97,7 +103,7 @@ extension HomeViewController {
 }
 
 // MARK: - CollectionView's UI Component Registration
-extension HomeViewController {
+private extension HomeViewController {
   private func createSectionHeaderRegistration() -> UICollectionView.SupplementaryRegistration<TitleSupplementaryView> {
     UICollectionView.SupplementaryRegistration<TitleSupplementaryView>(elementKind: UICollectionView.elementKindSectionHeader) { supplementaryView, _, indexPath in
       supplementaryView.label.text = self.viewModel?.getSectionTitle(at: indexPath.section)
@@ -156,35 +162,35 @@ extension HomeViewController {
 }
 
 // MARK: - CollectionView Diffable DataSource
-extension HomeViewController {
-  private func configureDataSource() -> UICollectionViewDiffableDataSource<Section, AnyHashable> {
+private extension HomeViewController {
+  private func configureDataSource() -> UICollectionViewDiffableDataSource<Section, SectionDataSource> {
     let heroCellRegistration = createHeroCellRegistration()
     let cityCellRegistration = createNearCityCellRegistration()
     let recommendationCellRegistration = createRecommendationCellRegistration()
 
-    let dataSource = UICollectionViewDiffableDataSource<Section, AnyHashable>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+    let dataSource = UICollectionViewDiffableDataSource<Section, SectionDataSource>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
       guard let section = Section(rawValue: indexPath.section) else {
         return nil
       }
 
       switch item {
-      case let data as String where section == .hero:
+      case let .image(image) where section == .hero:
         return collectionView.dequeueConfiguredReusableCell(
           using: heroCellRegistration,
           for: indexPath,
-          item: data
+          item: image
         )
-      case let data as City where section == .nearCities:
+      case let .city(city) where section == .nearCities:
         return collectionView.dequeueConfiguredReusableCell(
           using: cityCellRegistration,
           for: indexPath,
-          item: data
+          item: city
         )
-      case let data as Accommodation where section == .recommendation:
+      case let .accommodation(accommodation) where section == .recommendation:
         return collectionView.dequeueConfiguredReusableCell(
           using: recommendationCellRegistration,
           for: indexPath,
-          item: data
+          item: accommodation
         )
       default:
         return nil
@@ -209,8 +215,8 @@ extension HomeViewController {
         return
       }
 
-      var heroSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
-      heroSnapshot.append([image])
+      var heroSnapshot = NSDiffableDataSourceSectionSnapshot<SectionDataSource>()
+      heroSnapshot.append([SectionDataSource.image(image)])
 
       self?.dataSource.apply(heroSnapshot, to: .hero, animatingDifferences: true)
     }
@@ -220,8 +226,11 @@ extension HomeViewController {
         return
       }
 
-      var nearCitySnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
-      nearCitySnapshot.append(items)
+      let cityList = items.map { SectionDataSource.city($0) }
+
+      var nearCitySnapshot = NSDiffableDataSourceSectionSnapshot<SectionDataSource>()
+      nearCitySnapshot.append(cityList)
+
       self?.dataSource.apply(nearCitySnapshot, to: .nearCities, animatingDifferences: true)
     }
 
@@ -230,8 +239,10 @@ extension HomeViewController {
         return
       }
 
-      var recommendSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
-      recommendSnapshot.append(items)
+      let accommodationList = items.map { SectionDataSource.accommodation($0) }
+
+      var recommendSnapshot = NSDiffableDataSourceSectionSnapshot<SectionDataSource>()
+      recommendSnapshot.append(accommodationList)
 
       self?.dataSource.apply(recommendSnapshot, to: .recommendation, animatingDifferences: true)
     })
