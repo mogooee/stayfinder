@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class HeroCollectionViewCell: UICollectionViewCell {
+final class HeroCollectionViewCell: UICollectionViewCell {
   private let backgroundImageView = UIImageView(frame: .zero)
   private let title = UILabel()
   private let subtitle = UILabel()

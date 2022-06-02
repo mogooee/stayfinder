@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class NearCityCollectionViewCell: UICollectionViewCell {
+final class NearCityCollectionViewCell: UICollectionViewCell {
   private let thumbnailView = UIImageView(frame: .zero)
   private let title = UILabel()
   private let subtitle = UILabel()
