@@ -11,7 +11,7 @@ protocol DataTransferService {
   func request(with url: URL)
 }
 
-class DefaultImageRepository: ImageRepository {
+final class DefaultImageRepository: ImageRepository {
   private let dataTransferService: DataTransferService
   private let cache: ImageCacheStorage
 

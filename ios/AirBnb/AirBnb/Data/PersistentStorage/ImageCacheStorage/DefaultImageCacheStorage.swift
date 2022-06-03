@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DefaultImageCacheStorage {
+final class DefaultImageCacheStorage {
   private let cache = NSCache<NSURL, NSData>()
 
   private var diskDirectoryURL: URL? {
