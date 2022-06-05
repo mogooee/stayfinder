@@ -22,5 +22,5 @@ public class Review {
 	@JoinColumn(name = "ROOM_ID")
 	private Room room;
 
-	private Long Rating;
+	private Integer Rating;
 }

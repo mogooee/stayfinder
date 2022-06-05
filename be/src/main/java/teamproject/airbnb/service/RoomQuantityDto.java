@@ -1,6 +1,6 @@
 package teamproject.airbnb.service;
 
-import java.util.Comparator;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -13,25 +13,25 @@ public class RoomQuantityDto {
 
 	private Long minimumPrice;
 	private Long maximumPrice;
-	private Long[] roomQuantity;
+	private List<Long> priceList;
 
 	public static RoomQuantityDto from(List<Room> rooms) {
 
-		Long maximumPrice = rooms.stream()
+		// 가격을 기준으로 내림차순으로 정렬한 리스트
+		List<Long> priceList = rooms.stream()
 			.mapToLong(x -> x.getPrice())
-			.max()
-			.getAsLong();
+			.sorted()
+			.boxed()
+			.collect(Collectors.toList());
 
-		Long minimumPrice = rooms.stream()
-			.mapToLong(x -> x.getPrice())
-			.min()
-			.getAsLong();
+		int maxCount = priceList.size() - 1;
 
-		// TODO 동일한 값은 같은 인덱스에 넣어주도록 해야 한다.
-		Long[] roomQuantity = rooms.stream()
-			.sorted(Comparator.comparing(Room::getPrice))
-			.toArray(Long[]::new);
+		Long minimumPrice = priceList.get(0);
+		Long maximumPrice = priceList.get(maxCount);
 
-		return new RoomQuantityDto(minimumPrice, maximumPrice, roomQuantity);
+		return new RoomQuantityDto(
+			minimumPrice,
+			maximumPrice,
+			priceList);
 	}
 }

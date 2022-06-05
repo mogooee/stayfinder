@@ -42,13 +42,14 @@ public class Room {
 
 	//주소, 좌표 추가해야될듯
 	private String name;
+	private String address;
 	private String description;
 	private String furnitureDescription;
 	private Long price;
 	private Long maximumRoomCount;
 	private Long remainingRoomCount;
 	private Long reviewNumber;
-	private Long discount;
+	private Integer discount;
 	private Long cleaningFee;
 	private Long serviceCharge;
 	private Long lodgingTax;
@@ -64,6 +65,9 @@ public class Room {
 			.anyMatch(r -> r.getCheckOut().isBefore(checkIn));
 	}
 
+	public Boolean fallWithinPriceRange(Long minimumPrice, Long maximumPrice) {
+		return (minimumPrice <= this.price) && (this.price <= maximumPrice);
+	}
 
 	// TODO 방 입주
 	public void booked() {

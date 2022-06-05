@@ -1,4 +1,4 @@
-package teamproject.airbnb.api;
+package teamproject.airbnb.controller;
 
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -13,8 +13,8 @@ import teamproject.airbnb.service.MemberService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/member")
-public class MemberApiController {
+@RequestMapping("/member")
+public class MemberController {
 
 	private final MemberService memberService;
 

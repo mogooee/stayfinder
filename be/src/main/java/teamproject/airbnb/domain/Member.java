@@ -26,4 +26,6 @@ public class Member {
 
 	@NotEmpty
 	private String name;
+
+	private List<Long> wishList = new ArrayList<>();
 }

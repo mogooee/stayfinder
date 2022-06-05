@@ -1,9 +1,12 @@
 package teamproject.airbnb.service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import teamproject.airbnb.controller.RoomSearchInfoRequestDto;
 import teamproject.airbnb.repository.RoomRepository;
 
 @Service
@@ -13,16 +16,33 @@ public class RoomService {
 
 	private final RoomRepository roomRepository;
 
-	// TODO
 	public RoomQuantityDto loadQuantity(LocalDate checkIn) {
-		// 체크인 ~ 체크아웃에 해당하는 room 을 모두 조회해서
-		// 모든 room 중에서 잔여방의 수가 있고, ( 이건 roomRepository를 이용해서 스트림으로 모든 것을 조회해서 꺼내면서 DTO로 변환
-		// 예약 중에 해당 checkIn~checkOut 기간을 제외한 예약을 지니고 있는
-		// 종류의 room 들을의 종류 수를 요금에 따라 구분
-		// 물론 최소요금이랑 최대요금도 미리 구해놔야겠지
 
-		// 여기서 DTO 만들어야할듯 최소값, 최대값, 가격별 방개수를 기록한 배열이 담긴 DTO를 넘겨줘야할듯
+		return RoomQuantityDto.from(roomRepository.findAll().stream()
+			.filter(r -> r.isReservationAvailable(checkIn))
+			.collect(Collectors.toList()));
+	}
 
-		return RoomQuantityDto.from(roomRepository.findReservationAvailable(checkIn));
+	//request: 숙소 개수,체크인,체크아웃,요금 최소값,요금 최대값,게스트 수,어린이 수
+	/// response: 숙소 개수,체크인,체크아웃,요금 최소값,요금 최대값,게스트 수,어린이 수
+	//, (배열)roomDto{id,숙소이름,숙소설명,가구설명,평균평점,후기건수,가격,총액,찜 여부,주소,좌표}
+	public List<RoomSimpleInfoDto> loadSimpleInfoList(
+		RoomSearchInfoRequestDto roomSearchInfoRequestDto) {
+
+		// 체크인으로 저장소에서 가져온 객체들을
+		// 요금 간격에서 한번 더 거르고,
+		// 주어진 정보로 값을 계산해서 dto 에 넘겨준다
+		return roomRepository.findAll().stream()
+			.filter(r -> r.isReservationAvailable(
+				roomSearchInfoRequestDto.getCheckIn()))
+			.filter(r -> r.fallWithinPriceRange(
+				roomSearchInfoRequestDto.getMinimumPrice(),
+				roomSearchInfoRequestDto.getMaximumPrice()))
+			.map(r -> RoomSimpleInfoDto.of(
+				r,
+				roomSearchInfoRequestDto.getCheckIn(),
+				roomSearchInfoRequestDto.getCheckOut(),
+				roomSearchInfoRequestDto.getWishList()))
+			.collect(Collectors.toList());
 	}
 }
