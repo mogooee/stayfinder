@@ -14,11 +14,4 @@ struct City: Hashable, Identifiable {
   let name: String
   let distance: String
   let imageUrl: String
-
-  init(id: Identifier, name: String, distance: String, imageUrl: String) {
-    self.id = id
-    self.name = name
-    self.distance = distance
-    self.imageUrl = imageUrl
-  }
 }

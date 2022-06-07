@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E43DA4B0284769BC004619CD /* FetchImageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43DA4AF284769BC004619CD /* FetchImageUseCase.swift */; };
 		E4409DD4283B2A0E005C6BA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4409DD3283B2A0E005C6BA1 /* AppDelegate.swift */; };
 		E4409DD6283B2A0E005C6BA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4409DD5283B2A0E005C6BA1 /* SceneDelegate.swift */; };
 		E4409DD8283B2A0E005C6BA1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4409DD7283B2A0E005C6BA1 /* HomeViewController.swift */; };
@@ -28,12 +29,18 @@
 		E4BE2A49283DFD5F000099E5 /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BE2A48283DFD5F000099E5 /* ReservationViewController.swift */; };
 		E4BE2A4C283E0500000099E5 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BE2A4B283E0500000099E5 /* UIImage+Extensions.swift */; };
 		E4C5C1E32843141700FE8B21 /* Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = E4C5C1E22843141700FE8B21 /* Toolbox */; };
+		E4E3C2A7284855A200B5F7E1 /* ImageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E3C2A6284855A200B5F7E1 /* ImageFactory.swift */; };
+		E4E3C2A92848585000B5F7E1 /* DefaultImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E3C2A82848585000B5F7E1 /* DefaultImageRepository.swift */; };
+		E4E3C2AC28485E5500B5F7E1 /* DefaultImageCacheStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E3C2AB28485E5500B5F7E1 /* DefaultImageCacheStorage.swift */; };
+		E4E3C2B02848688E00B5F7E1 /* ImageCacheStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E3C2AF2848688E00B5F7E1 /* ImageCacheStorage.swift */; };
+		E4E3C2B42848AC6200B5F7E1 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E3C2B32848AC6200B5F7E1 /* NetworkService.swift */; };
 		E4F11DA6283F28330035CBC2 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F11DA5283F28330035CBC2 /* Observable.swift */; };
 		E4F11DAA283F5B710035CBC2 /* LocationSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F11DA9283F5B710035CBC2 /* LocationSearchController.swift */; };
 		E4F11DAD283F5F100035CBC2 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F11DAC283F5F100035CBC2 /* SearchResultViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E43DA4AF284769BC004619CD /* FetchImageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchImageUseCase.swift; sourceTree = "<group>"; };
 		E4409DD3283B2A0E005C6BA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4409DD5283B2A0E005C6BA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E4409DD7283B2A0E005C6BA1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +68,11 @@
 		E4BE2A46283DFD48000099E5 /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewController.swift; sourceTree = "<group>"; };
 		E4BE2A48283DFD5F000099E5 /* ReservationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewController.swift; sourceTree = "<group>"; };
 		E4BE2A4B283E0500000099E5 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		E4E3C2A6284855A200B5F7E1 /* ImageFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFactory.swift; sourceTree = "<group>"; };
+		E4E3C2A82848585000B5F7E1 /* DefaultImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultImageRepository.swift; sourceTree = "<group>"; };
+		E4E3C2AB28485E5500B5F7E1 /* DefaultImageCacheStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultImageCacheStorage.swift; sourceTree = "<group>"; };
+		E4E3C2AF2848688E00B5F7E1 /* ImageCacheStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheStorage.swift; sourceTree = "<group>"; };
+		E4E3C2B32848AC6200B5F7E1 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		E4F11DA5283F28330035CBC2 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		E4F11DA9283F5B710035CBC2 /* LocationSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchController.swift; sourceTree = "<group>"; };
 		E4F11DAC283F5F100035CBC2 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +111,7 @@
 				E46F12932845A4EC00BB168E /* Domain */,
 				E46F12922845A4E300BB168E /* Data */,
 				E45F2A81283B30C300F0CB7C /* Resources */,
+				E4E3C2B22848AC5600B5F7E1 /* Infrastructures */,
 			);
 			path = AirBnb;
 			sourceTree = "<group>";
@@ -128,6 +141,8 @@
 			isa = PBXGroup;
 			children = (
 				E46F12942845A50B00BB168E /* Repositories */,
+				E4E3C2B1284868F500B5F7E1 /* Network */,
+				E4E3C2AA28485E1F00B5F7E1 /* PersistentStorage */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -137,6 +152,7 @@
 			children = (
 				E46F12962845A56E00BB168E /* Entities */,
 				E46F12992845AE4600BB168E /* UseCases */,
+				E4E3C2A5284854E000B5F7E1 /* Interfaces */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -144,6 +160,7 @@
 		E46F12942845A50B00BB168E /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				E4E3C2A82848585000B5F7E1 /* DefaultImageRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -160,6 +177,7 @@
 		E46F12992845AE4600BB168E /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				E43DA4AF284769BC004619CD /* FetchImageUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -255,6 +273,46 @@
 				E46F12A12845EED900BB168E /* Hashable+hash.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E4E3C2A5284854E000B5F7E1 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				E4E3C2A6284855A200B5F7E1 /* ImageFactory.swift */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		E4E3C2AA28485E1F00B5F7E1 /* PersistentStorage */ = {
+			isa = PBXGroup;
+			children = (
+				E4E3C2AD2848686A00B5F7E1 /* ImageCacheStorage */,
+			);
+			path = PersistentStorage;
+			sourceTree = "<group>";
+		};
+		E4E3C2AD2848686A00B5F7E1 /* ImageCacheStorage */ = {
+			isa = PBXGroup;
+			children = (
+				E4E3C2AF2848688E00B5F7E1 /* ImageCacheStorage.swift */,
+				E4E3C2AB28485E5500B5F7E1 /* DefaultImageCacheStorage.swift */,
+			);
+			path = ImageCacheStorage;
+			sourceTree = "<group>";
+		};
+		E4E3C2B1284868F500B5F7E1 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		E4E3C2B22848AC5600B5F7E1 /* Infrastructures */ = {
+			isa = PBXGroup;
+			children = (
+				E4E3C2B32848AC6200B5F7E1 /* NetworkService.swift */,
+			);
+			path = Infrastructures;
 			sourceTree = "<group>";
 		};
 		E4F11DAB283F5F030035CBC2 /* Search */ = {
@@ -392,10 +450,16 @@
 				E4F11DAA283F5B710035CBC2 /* LocationSearchController.swift in Sources */,
 				E471A09E284072F500232E5F /* HeroCollectionViewCell.swift in Sources */,
 				E4583FB7284226BA00A095BB /* UIView+Extensions.swift in Sources */,
+				E4E3C2AC28485E5500B5F7E1 /* DefaultImageCacheStorage.swift in Sources */,
+				E43DA4B0284769BC004619CD /* FetchImageUseCase.swift in Sources */,
+				E4E3C2A7284855A200B5F7E1 /* ImageFactory.swift in Sources */,
+				E4E3C2B42848AC6200B5F7E1 /* NetworkService.swift in Sources */,
 				E471A09A2840673E00232E5F /* SectionFactory.swift in Sources */,
 				E4409DD8283B2A0E005C6BA1 /* HomeViewController.swift in Sources */,
 				E4BE2A47283DFD48000099E5 /* WishListViewController.swift in Sources */,
+				E4E3C2A92848585000B5F7E1 /* DefaultImageRepository.swift in Sources */,
 				E471A0A72840B04D00232E5F /* TitleSupplementaryView.swift in Sources */,
+				E4E3C2B02848688E00B5F7E1 /* ImageCacheStorage.swift in Sources */,
 				E4588F9D283E281E00544A6D /* UIColor+Extensions.swift in Sources */,
 				E46F129C2845E8FB00BB168E /* City.swift in Sources */,
 				E4BE2A4C283E0500000099E5 /* UIImage+Extensions.swift in Sources */,

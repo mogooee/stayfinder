@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class NearCityCollectionViewCell: UICollectionViewCell {
+final class NearCityCollectionViewCell: UICollectionViewCell {
   private let thumbnailView = UIImageView(frame: .zero)
   private let title = UILabel()
   private let subtitle = UILabel()
@@ -53,9 +53,6 @@ class NearCityCollectionViewCell: UICollectionViewCell {
     contentView.addSubview(thumbnailView)
     thumbnailView.snp.makeConstraints { make in
       make.size.equalTo(contentView.snp.height)
-      make.top.equalTo(contentView)
-      make.leading.equalTo(contentView)
-      make.bottom.equalTo(contentView)
     }
 
     let stack = UIStackView(arrangedSubviews: [title, subtitle])

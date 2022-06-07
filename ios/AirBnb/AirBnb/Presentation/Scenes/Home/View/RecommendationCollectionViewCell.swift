@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class RecommendationCollectionViewCell: UICollectionViewCell {
+final class RecommendationCollectionViewCell: UICollectionViewCell {
   private let imageView = UIImageView(frame: .zero)
   private let title = UILabel(frame: .zero)
 

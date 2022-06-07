@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class TitleSupplementaryView: UICollectionReusableView {
+final class TitleSupplementaryView: UICollectionReusableView {
   static let reuseIdentifier = "TitleSupplementaryView"
 
   let label = UILabel()
