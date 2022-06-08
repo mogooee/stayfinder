@@ -1,27 +1,56 @@
-export interface PeriodType {
-  checkIn?: number;
-  checkOut?: number;
-}
+import { Dispatch } from 'react';
 
-export interface PriceType {
+export type PeriodType = {
+  checkIn?: string;
+  checkOut?: string;
+};
+
+export type PriceType = {
   minPrice?: number;
   maxPrice?: number;
-}
+};
 
-export interface PersonnelType {
+export type PersonnelType = {
   adult?: number;
   teenager?: number;
   child?: number;
-}
+};
 
-export interface SearchPropsType {
-  title: string | string[];
+export interface InfoType {
+  title: string & string[];
   defaultValue: string;
-  value: PeriodType & PriceType & PersonnelType;
+  value?: object;
 }
 
-export interface SectionProps {
-  search: SearchPropsType;
-  addSearch: object;
-  value?: string;
+export type SearchType = {
+  period: PeriodType;
+  price: PriceType;
+  personnel: PersonnelType;
+};
+
+export type addSearchType =
+  | {
+      type: 'SET_PERIOD';
+      value: PeriodType;
+    }
+  | {
+      type: 'SET_PRICE';
+      value: PriceType;
+    }
+  | {
+      type: 'SET_PERSONNEL';
+      value: PersonnelType;
+    }
+  | {
+      type: 'INIT_VALUE';
+      value: string;
+    };
+export interface ModalProps<T> {
+  search: T;
+  addSearch: Dispatch<addSearchType>;
+}
+
+export interface SectionProps<T> {
+  info: InfoType;
+  search: T;
 }

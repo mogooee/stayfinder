@@ -1,16 +1,23 @@
 import React from 'react';
-import SearchSection from 'components/SearchBar/SearchSection/SearchSection';
-import { SectionProps } from 'components/SearchBar/types';
+import SearchSection from 'components/common/Section/Section';
+import { PeriodType, SectionProps } from 'components/SearchBar/types';
 
-export default function Period({ search, addSearch }: SectionProps) {
-  const { title, defaultValue, value } = search;
-  const [checkInTitle, checkOutTitle] = title as string[];
-  const { checkIn, checkOut } = value;
+export default function Period({ info, search }: SectionProps<PeriodType>): JSX.Element {
+  const { checkIn, checkOut } = search;
+  const [checkInTitle, checkOutTitle] = info.title;
+  const getMonth = (date: string): number => Number(date.slice(-4, -2));
+  const getDay = (date: string): number => Number(date.slice(-2));
 
   return (
     <>
-      <SearchSection title={checkInTitle as string} value={checkIn || defaultValue} />
-      <SearchSection title={checkOutTitle as string} value={checkOut || defaultValue} />
+      <SearchSection
+        title={checkInTitle}
+        value={checkIn ? `${getMonth(checkIn)}월 ${getDay(checkIn)}일` : info.defaultValue}
+      />
+      <SearchSection
+        title={checkOutTitle}
+        value={checkOut ? `${getMonth(checkOut)}월 ${getDay(checkOut)}일` : info.defaultValue}
+      />
     </>
   );
 }

@@ -1,51 +1,33 @@
 import React, { useContext, createContext, useReducer, Dispatch } from 'react';
-import { PeriodType, PriceType, PersonnelType, SearchPropsType } from 'components/SearchBar/types';
+import { SearchType, addSearchType } from 'components/SearchBar/types';
 
-interface SearchType {
-  period: SearchPropsType;
-  price: SearchPropsType;
-  personnel: SearchPropsType;
-}
-
-type ActionType =
-  | {
-    type: 'SET_PERIOD';
-    value: PeriodType;
-  }
-  | {
-    type: 'SET_PRICE';
-    value: PriceType;
-  }
-  | {
-    type: 'SET_PERSONNEL';
-    value: PersonnelType;
-  };
-
-function searchReducer(searches: SearchType, action: ActionType): SearchType {
+function searchReducer(searches: SearchType, action: addSearchType): SearchType {
   const { type, value } = action;
   switch (type) {
+    case 'INIT_VALUE':
+      Object.keys(searches[value]).forEach((key) => {
+        Object.assign(searches, { [value]: { ...searches[value], [key]: null } });
+      });
+      return { ...searches };
     case 'SET_PERIOD':
       return {
         ...searches,
         period: {
           ...searches.period,
-          value: {
-            checkIn: value.checkIn,
-            checkOut: value.checkOut,
-          },
+          ...value,
         },
       };
     case 'SET_PRICE':
       return {
         ...searches,
-        price: { ...searches.price, value: { minPrice: value.minPrice, maxPrice: value.maxPrice } },
+        price: { minPrice: value.minPrice, maxPrice: value.maxPrice },
       };
     case 'SET_PERSONNEL':
       return {
         ...searches,
         personnel: {
           ...searches.personnel,
-          value: { adult: value.adult, teenager: value.teenager, child: value.child },
+          ...value,
         },
       };
     default:
@@ -53,42 +35,29 @@ function searchReducer(searches: SearchType, action: ActionType): SearchType {
   }
 }
 
-type DispatchType = Dispatch<ActionType>;
+type DispatchType = Dispatch<addSearchType>;
 
 export const SearchContext = createContext<SearchType | null>(null);
 export const AddSearchContext = createContext<DispatchType | null>(null);
 
 const initSearch = {
   period: {
-    title: ['체크인', '체크아웃'],
-    defaultValue: '날짜입력',
-    value: {
-      checkIn: undefined,
-      checkOut: undefined,
-    },
+    checkIn: undefined,
+    checkOut: undefined,
   },
   price: {
-    title: '요금',
-    defaultValue: '금액대 설정',
-    value: {
-      minPrice: undefined,
-      maxPrice: undefined,
-    },
+    minPrice: undefined,
+    maxPrice: undefined,
   },
   personnel: {
-    title: '인원',
-    defaultValue: '게스트 추가',
-    value: {
-      adult: undefined,
-      teenager: undefined,
-      child: undefined,
-    },
+    adult: undefined,
+    teenager: undefined,
+    child: undefined,
   },
 };
 
-export function SearchProvider({ children }: { children: React.ReactNode }) {
+export function SearchProvider({ children }: { children: React.ReactNode }): JSX.Element {
   const [searches, addSearch] = useReducer(searchReducer, initSearch);
-
   return (
     <SearchContext.Provider value={searches}>
       <AddSearchContext.Provider value={addSearch}>{children}</AddSearchContext.Provider>
