@@ -19,7 +19,7 @@ export default function Personnel({ search, addSearch }: ModalProps<PersonnelTyp
     const current = search[title] || 0;
     const surplus = type === 'increment' ? +1 : -1;
     const value = { [title]: current + surplus };
-    const needProtector = type === 'increment' && title !== 'adult' && !search.adult;
+    const needProtector = title !== 'adult' && !search.adult;
 
     addSearch({
       type: 'SET_PERSONNEL',
