@@ -54,7 +54,7 @@ export default function Price({ search, addSearch }: ModalProps<PriceType>): JSX
     for (let i = 0; i < graphValues.length; i += 1) {
       const barHeight = graphValues[i] * 30;
 
-      const isSelected = () => rangeLeftValue <= scaleArray[i] && rangeRightValue >= scaleArray[i + 1];
+      const isSelected = () => rangeLeftValue <= scaleArray[i + 1] && rangeRightValue >= scaleArray[i];
       const fillColor = isSelected() ? '#000' : '#eee';
 
       context.fillStyle = fillColor;
