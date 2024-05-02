@@ -8,8 +8,8 @@ import Personnel from 'components/SearchBar/Personnel/Personnel';
 import SearchList from 'components/SearchBar/SearchList/SearchList';
 
 import { Button } from '@mui/material';
-import { ReactComponent as SearchIcon } from 'img/svg/search-icon.svg';
-import { ReactComponent as SearchTextIcon } from 'img/svg/search-text-icon.svg';
+import { ReactComponent as SearchIcon } from 'assets/icons/search-icon.svg';
+import { ReactComponent as SearchTextIcon } from 'assets/icons/search-text-icon.svg';
 import { StyledSearchBar, StyledLi, SplitLine } from './SearchBar.styled';
 
 function SearchButton() {

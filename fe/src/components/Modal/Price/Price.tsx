@@ -1,6 +1,6 @@
 import { ModalProps, PriceType } from 'components/SearchBar/types';
 import React, { useEffect, useRef, useState } from 'react';
-import { ReactComponent as PauseIcon } from 'img/svg/pause-circle.svg';
+import { ReactComponent as PauseIcon } from 'assets/icons/pause-circle.svg';
 import { ModalHeader, Title, PriceInfo, Caption, RangeSlider, MultiRangeSlider, Slider, Thumb } from './Price.styled';
 
 const canvasWidth = 300;

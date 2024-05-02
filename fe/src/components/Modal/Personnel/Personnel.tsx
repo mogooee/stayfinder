@@ -1,8 +1,8 @@
 import React from 'react';
 import Section from 'components/common/Section/Section';
 import { ModalProps, PersonnelType } from 'components/SearchBar/types';
-import { ReactComponent as MinusIcon } from 'img/svg/minus-circle.svg';
-import { ReactComponent as PlusIcon } from 'img/svg/plus-circle.svg';
+import { ReactComponent as MinusIcon } from 'assets/icons/minus-circle.svg';
+import { ReactComponent as PlusIcon } from 'assets/icons/plus-circle.svg';
 import info from 'helpers/constant';
 import {
   StyledPersonnel,

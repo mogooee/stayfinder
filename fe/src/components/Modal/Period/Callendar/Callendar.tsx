@@ -1,6 +1,6 @@
 import React, { Dispatch, useState } from 'react';
-import { ReactComponent as LeftIcon } from 'img/svg/left.svg';
-import { ReactComponent as RightIcon } from 'img/svg/right.svg';
+import { ReactComponent as LeftIcon } from 'assets/icons/left.svg';
+import { ReactComponent as RightIcon } from 'assets/icons/right.svg';
 import { addSearchType } from 'components/SearchBar/types';
 import { StyledCallendar, CallendarTitle, DayOfWeek, PastDay, FutureDay } from './Callendar.styled';
 
