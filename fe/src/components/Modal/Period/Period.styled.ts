@@ -3,7 +3,8 @@ import styled from 'styled-components';
 export default styled.div`
   display: grid;
   place-items: center;
-  grid-template-columns: repeat(auto-fit,minmax(50%,auto));
+  align-items: start;
+  grid-template-columns: repeat(2, 1fr);
   ${({ callendarNum }) => {
     const maxNumOfLine = 2;
     return (
