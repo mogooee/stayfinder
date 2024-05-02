@@ -1,132 +1,121 @@
-import React, { useEffect, useRef } from 'react';
-import styled from 'styled-components';
+/* eslint-disable camelcase */
+import React, { useEffect, useRef, useState } from 'react';
 import GNB from 'components/GNB/GNB';
-
-const Header = styled.header`
-  height: 94 px;
-`;
-
-const Map = styled.div`
-  width: 100vw;
-  height: 100vh;
-
-  .label {
-    margin-bottom: 96px;
-  }
-  .label * {
-    display: inline-block;
-    vertical-align: top;
-  }
-  .label .left {
-    background: url('https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_l.png') no-repeat;
-    display: inline-block;
-    height: 24px;
-    overflow: hidden;
-    vertical-align: top;
-    width: 7px;
-  }
-  .label .center {
-    background: url(https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_bg.png) repeat-x;
-    display: inline-block;
-    height: 24px;
-    font-size: 12px;
-    line-height: 24px;
-  }
-  .label .right {
-    background: url('https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_r.png') -1px 0 no-repeat;
-    display: inline-block;
-    height: 24px;
-    overflow: hidden;
-    width: 6px;
-  }
-`;
+import AccomodationListView, { type Accomodation } from 'components/accomodations/AccomodationListView';
+import makeDummyData from 'utils/dummyDataUtil';
+import {
+  getCenterPos,
+  getCurrentPos,
+  getHTML,
+  handleClickMarker,
+  makeClusterer,
+  makeMap,
+  makeMarker,
+  searchPlaces,
+} from 'utils/mapUtil';
+import * as S from './index.styles';
 
 declare global {
   interface Window {
     kakao: any;
+    // eslint-disable-next-line no-unused-vars
+    clickOverlay: (args: HTMLElement) => void;
   }
 }
 
-const mapInfo = [
-  {
-    title: 'codesquad',
-    position: {
-      x: 37.490821,
-      y: 127.033417,
-    },
-  },
-  {
-    title: '싸리고개공원',
-    position: {
-      x: 37.4894897,
-      y: 127.035605,
-    },
-  },
-  {
-    title: '역삼소나무공원',
-    position: {
-      x: 37.490928,
-      y: 127.0337138,
-    },
-  },
-  {
-    title: '역삼개나리공원',
-    position: {
-      x: 37.497581,
-      y: 127.0361225,
-    },
-  },
-  {
-    title: '역삼까치공원',
-    position: {
-      x: 37.4972085,
-      y: 127.030726,
-    },
-  },
-];
+export interface Pos {
+  x: number;
+  y: number;
+}
 
-const centerPosition = { x: 37.490821, y: 127.033417 };
+// main에서 넘어와야 하는 state
+const MIN_COST = 50000;
+const MAX_COST = 100000;
+const days = 5;
+
+const ACCOMODATION_CODE = 'AD5';
+const INIT_CENTER_POS = { x: 127.033417, y: 37.490821 };
+const MAP_LEVEL = 5;
 
 export default function Search(): JSX.Element {
-  const mapRef = useRef<HTMLDivElement>(null);
   const { kakao } = window;
+  const mapRef = useRef<HTMLDivElement>(null);
+  const [centerPos, setCenterPos] = useState<Pos>(INIT_CENTER_POS);
+  const [accomodations, setAccomodations] = useState<Accomodation[]>([]);
+  const [mapLevel, setMapLevel] = useState<number>(MAP_LEVEL);
+
+  window.clickOverlay = (overlay: HTMLElement) => {
+    const selectedAd = accomodations.find((e) => e.id === overlay.dataset.id);
+    if (!selectedAd) return;
+
+    const className = 'modal-ad';
+    const modal = getHTML.modalAd(className, { ...selectedAd }, days * selectedAd.cost);
+
+    handleClickMarker({ overlay, content: modal, className });
+  };
 
   useEffect(() => {
-    // const mapContainer = document.getElementById('map'); // 지도를 표시할 div
     const mapContainer = mapRef.current;
+    if (!mapContainer) return;
 
-    const mapOption = {
-      center: new kakao.maps.LatLng(centerPosition.x, centerPosition.y), // 지도의 중심좌표
-      level: 3, // 지도의 확대 레벨
-    };
+    const map = makeMap(mapContainer, centerPos, mapLevel);
 
-    const map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+    kakao.maps.event.addListener(map, 'zoom_changed', () => {
+      const level = map.getLevel();
+      setMapLevel(level);
+    });
 
-    mapInfo.forEach((e) => {
-      // 커스텀 오버레이에 표시할 내용입니다
-      // HTML 문자열 또는 Dom Element 입니다
-      const content = `<div class ="label"><span class="left"></span><span class="center">${e.title}</span><span class="right"></span></div>`;
+    const clusterer = makeClusterer(map, MAP_LEVEL);
 
-      // 커스텀 오버레이가 표시될 위치입니다
-      const position = new kakao.maps.LatLng(e.position.x, e.position.y);
+    const searchSuccessCallback = (data) => {
+      const newAccomodations = makeDummyData(data, MIN_COST, MAX_COST);
+      setAccomodations(newAccomodations);
 
-      // 커스텀 오버레이를 생성합니다
-      const customOverlay = new kakao.maps.CustomOverlay({
-        position,
-        content,
+      const markers = newAccomodations.map((e) => {
+        const content = getHTML.marker(e);
+        const position = new kakao.maps.LatLng(e.y, e.x);
+        const marker = makeMarker(position, content);
+        return marker;
       });
 
-      // 커스텀 오버레이를 지도에 표시합니다
-      customOverlay.setMap(map);
-    });
-  }, [kakao.maps]);
+      clusterer.addMarkers(markers);
+    };
+    searchPlaces(map, ACCOMODATION_CODE, searchSuccessCallback);
+
+    getCenterPos(map, setCenterPos);
+  }, [kakao, centerPos, mapLevel]);
+
+  const locationLoadSuccess = (pos) => {
+    setCenterPos({ x: pos.La, y: pos.Ma });
+  };
 
   return (
     <main>
-      <Header>
+      <S.Header>
         <GNB />
-      </Header>
-      <Map id="map" ref={mapRef} />
+      </S.Header>
+      <div style={{ display: 'flex', height: '100vh', paddingTop: 98, overflow: 'hidden' }}>
+        {accomodations.length > 0 ? (
+          <AccomodationListView
+            accomodations={accomodations}
+            days={days}
+            setCenterPos={setCenterPos}
+            setMapLevel={setMapLevel}
+          />
+        ) : (
+          <div>Loading...</div>
+        )}
+        <div style={{ flex: 1 }}>
+          <S.Map id="map" ref={mapRef} />
+          <S.CurrentPositionBtn
+            style={{ backgroundColor: '#fff', position: 'absolute', top: 110, right: 10 }}
+            type="button"
+            onClick={() => getCurrentPos(locationLoadSuccess)}
+          >
+            현재 위치
+          </S.CurrentPositionBtn>
+        </div>
+      </div>
     </main>
   );
 }
