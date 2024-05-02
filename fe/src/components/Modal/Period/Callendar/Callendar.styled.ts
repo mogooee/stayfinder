@@ -9,8 +9,7 @@ export const CallendarTitle = styled.h1`
 
 export const StyledCallendar = styled.table`
   font-size: 18px;
-  width: 336px;
-  height: 336px;
+
   h1 {
     margin-left: auto;
     margin-right: auto;
