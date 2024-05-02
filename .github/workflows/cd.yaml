@@ -17,6 +17,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Docker Environment Varibale File
+        run:
+          echo -e "REACT_APP_KAKAO_APP_KEY=${{secrets.REACT_APP_KAKAO_APP_KEY}}\n
+          REACT_APP_KAKAO_REST_API=${{secrets.REACT_APP_KAKAO_REST_API}}\n" > ./.env
+
       - name: Install dependencies
         run: npm install
 
