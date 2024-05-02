@@ -1,8 +1,0 @@
-app_identifier("co.Song.AirBnb") # The bundle identifier of your app
-apple_id("songtaehwan@nate.com") # Your Apple email address
-
-itc_team_id("125030207") # App Store Connect Team ID
-team_id("FCQD35AW5P") # Developer Portal Team ID
-
-# For more information about the Appfile, see:
-#     https://docs.fastlane.tools/advanced/#appfile
