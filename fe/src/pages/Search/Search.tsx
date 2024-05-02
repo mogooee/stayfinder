@@ -14,7 +14,7 @@ import {
   searchPlaces,
 } from 'utils/mapUtil';
 import { useSearch } from 'context/SearchProvider';
-import getDateDiff from 'utils/dateUtil';
+import { getDateDiff, getDate } from 'utils/dateUtil';
 import * as S from './index.styles';
 
 declare global {
@@ -32,6 +32,8 @@ export interface Pos {
 
 const ACCOMODATION_CODE = 'AD5';
 const INIT_CENTER_POS = { x: 127.033417, y: 37.490821 };
+const MIN_PRICE = 5000;
+const MAX_PRICE = 100000;
 const MAP_LEVEL = 5;
 
 export default function Search(): JSX.Element {
@@ -41,7 +43,9 @@ export default function Search(): JSX.Element {
   const [accomodations, setAccomodations] = useState<Accomodation[]>([]);
   const [mapLevel, setMapLevel] = useState<number>(MAP_LEVEL);
   const { period, price } = useSearch();
-  const days = getDateDiff(period.checkIn!, period.checkOut!);
+  const [minPrice, maxPrice] = [price.min ?? MIN_PRICE, price.max ?? MAX_PRICE];
+  const [checkIn, checkOut] = [period.checkIn ?? getDate.today, period.checkOut ?? getDate.tomorrow];
+  const days = getDateDiff(checkIn, checkOut);
 
   window.clickOverlay = (overlay: HTMLElement) => {
     const selectedAd = accomodations.find((e) => e.id === overlay.dataset.id);
@@ -67,7 +71,7 @@ export default function Search(): JSX.Element {
     const clusterer = makeClusterer(map, MAP_LEVEL);
 
     const searchSuccessCallback = (data) => {
-      const newAccomodations = makeDummyData(data, price.min, price.max);
+      const newAccomodations = makeDummyData(data, minPrice, maxPrice);
       setAccomodations(newAccomodations);
 
       const markers = newAccomodations.map((e) => {
@@ -82,7 +86,7 @@ export default function Search(): JSX.Element {
     searchPlaces(map, ACCOMODATION_CODE, searchSuccessCallback);
 
     getCenterPos(map, setCenterPos);
-  }, [kakao, centerPos, mapLevel, price]);
+  }, [kakao, centerPos, mapLevel, minPrice, maxPrice]);
 
   const locationLoadSuccess = (pos) => {
     setCenterPos({ x: pos.La, y: pos.Ma });
